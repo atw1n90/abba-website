@@ -1686,6 +1686,43 @@ a.contact-value:hover { color: var(--gold-3); }
     .truck-instruction { font-size: 0.74rem; padding: 0 16px; }
 }
 
+/* === Phone-tight hotspot layout (tested at 390px viewport) ===
+   Desktop label offsets (-200px, -240px etc.) push labels off-screen on phones.
+   Use shorter leaders + tighter label offsets so all 4 labels fit inside the viewport. */
+@media (max-width: 600px) {
+    .hotspot-label {
+        padding: 5px 9px;
+        font-size: 0.58rem;
+        letter-spacing: 0.08em;
+        border-width: 1px;
+        line-height: 1.2;
+        border-radius: 4px;
+    }
+    .hotspot-dot {
+        width: 12px;
+        height: 12px;
+        top: -6px;
+        left: -6px;
+        box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.18), 0 0 0 9px rgba(245, 166, 35, 0.08);
+    }
+
+    /* HOOD — leader SW, label sits below-left (lower-left of viewport) */
+    .hotspot-hood .hotspot-leader { width: 35px; transform: rotate(135deg); }
+    .hotspot-hood .hotspot-label { top: 20px; left: -90px; }
+
+    /* CAB — leader NW, label sits above-left (upper-left of viewport) */
+    .hotspot-cab .hotspot-leader { width: 38px; transform: rotate(225deg); }
+    .hotspot-cab .hotspot-label { top: -45px; left: -95px; }
+
+    /* ACADEMY — leader straight up, label centered above (upper-right of viewport) */
+    .hotspot-academy .hotspot-leader { width: 35px; transform: rotate(-90deg); }
+    .hotspot-academy .hotspot-label { top: -50px; left: -45px; }
+
+    /* DOOR — leader straight down, label centered below (lower-center of viewport) */
+    .hotspot-door .hotspot-leader { width: 35px; transform: rotate(90deg); }
+    .hotspot-door .hotspot-label { top: 40px; left: -45px; }
+}
+
 /* ============ REDUCED MOTION ============ */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {

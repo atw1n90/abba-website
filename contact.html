@@ -116,38 +116,39 @@
 
                 <div class="form-row">
                     <label class="form-field">
-                        <span>Name</span>
+                        <span>Name <span class="req">*</span></span>
                         <input type="text" name="name" required>
                     </label>
                     <label class="form-field">
-                        <span>Company</span>
+                        <span>Company <span class="opt">(optional)</span></span>
                         <input type="text" name="company">
                     </label>
                 </div>
 
                 <div class="form-row">
                     <label class="form-field">
-                        <span>Email</span>
+                        <span>Email <span class="req">*</span></span>
                         <input type="email" name="email" required>
                     </label>
                     <label class="form-field">
-                        <span>Phone</span>
+                        <span>Phone <span class="opt">(optional)</span></span>
                         <input type="tel" name="phone">
                     </label>
                 </div>
 
                 <label class="form-field">
-                    <span>I'm reaching out about...</span>
+                    <span>I'm reaching out about... <span class="req">*</span></span>
                     <select name="topic" required>
                         <option value="">Choose one</option>
                         <option value="freight">Freight &amp; transportation services</option>
+                        <option value="driver">Driver opportunity</option>
                         <option value="owner-op">Owner operator opportunity</option>
                         <option value="other">Other</option>
                     </select>
                 </label>
 
                 <label class="form-field">
-                    <span>Message</span>
+                    <span>Message <span class="req">*</span></span>
                     <textarea name="message" rows="5" required></textarea>
                 </label>
 

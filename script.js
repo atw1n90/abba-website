@@ -46,7 +46,7 @@
         if (siblings.length <= 1) return 0;
         const idx = siblings.indexOf(el);
         if (idx < 0) return 0;
-        return Math.min(idx, 5) * 90;
+        return Math.min(idx, 8) * 110;
     }
 
     if ('IntersectionObserver' in window && revealEls.length) {
@@ -92,6 +92,72 @@
     if (!prefersReducedMotion && parallaxEls.length) {
         window.addEventListener('scroll', onScrollParallax, { passive: true });
         applyParallax();
+    }
+
+    /* ----------- 3D tilt on cards (hover) ----------- */
+    const tiltSelector = '.service-card, .why-card, .fleet-card';
+    if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+        const tiltCards = document.querySelectorAll(tiltSelector);
+        tiltCards.forEach((card) => {
+            card.style.transformStyle = 'preserve-3d';
+            card.style.transition = (card.style.transition || '') + ', transform .15s ease-out';
+            let raf = 0;
+            const onMove = (e) => {
+                if (raf) return;
+                raf = requestAnimationFrame(() => {
+                    raf = 0;
+                    const rect = card.getBoundingClientRect();
+                    const x = (e.clientX - rect.left) / rect.width - 0.5;
+                    const y = (e.clientY - rect.top) / rect.height - 0.5;
+                    const max = 6; // degrees
+                    const rx = (-y * max).toFixed(2);
+                    const ry = (x * max).toFixed(2);
+                    card.style.transform = `perspective(900px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-4px)`;
+                });
+            };
+            const onLeave = () => {
+                if (raf) cancelAnimationFrame(raf);
+                raf = 0;
+                card.style.transform = '';
+            };
+            card.addEventListener('mousemove', onMove);
+            card.addEventListener('mouseleave', onLeave);
+        });
+    }
+
+    /* ----------- Magnetic gold CTAs ----------- */
+    if (!prefersReducedMotion && window.matchMedia('(hover: hover)').matches) {
+        const magneticBtns = document.querySelectorAll('.btn-gold');
+        magneticBtns.forEach((btn) => {
+            const radius = 90;
+            const strength = 0.28;
+            let raf = 0;
+            const onMove = (e) => {
+                if (raf) return;
+                raf = requestAnimationFrame(() => {
+                    raf = 0;
+                    const rect = btn.getBoundingClientRect();
+                    const cx = rect.left + rect.width / 2;
+                    const cy = rect.top + rect.height / 2;
+                    const dx = e.clientX - cx;
+                    const dy = e.clientY - cy;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist > radius + Math.max(rect.width, rect.height) / 2) {
+                        btn.style.transform = '';
+                        return;
+                    }
+                    btn.style.transform = `translate(${(dx * strength).toFixed(2)}px, ${(dy * strength).toFixed(2)}px)`;
+                });
+            };
+            const onLeave = () => {
+                if (raf) cancelAnimationFrame(raf);
+                raf = 0;
+                btn.style.transform = '';
+            };
+            btn.style.transition = 'transform .2s cubic-bezier(0.16, 1, 0.3, 1), background .25s ease, box-shadow .25s ease';
+            btn.addEventListener('mousemove', onMove);
+            btn.addEventListener('mouseleave', onLeave);
+        });
     }
 
 })();

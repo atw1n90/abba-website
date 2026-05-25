@@ -254,6 +254,74 @@ body:not(.page-home) { padding-bottom: 56px; }
     pointer-events: none;
     z-index: 1;
 }
+
+/* Light drifting sand — Permian Basin atmosphere. Two layered haze fields
+   blow leftward at different speeds for a natural windblown feel. Sits
+   behind the truck so it never blocks hotspot clicks. */
+.sand-veil {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 1;
+}
+.sand-veil::before,
+.sand-veil::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat-x;
+}
+/* Slow, wide background dust — long streaks across the whole frame */
+.sand-veil::before {
+    background-image:
+        radial-gradient(ellipse 300px 6px at 20% 28%, rgba(232, 200, 150, 0.32), transparent 70%),
+        radial-gradient(ellipse 260px 5px at 55% 46%, rgba(232, 200, 150, 0.26), transparent 70%),
+        radial-gradient(ellipse 340px 6px at 80% 70%, rgba(232, 200, 150, 0.30), transparent 70%),
+        radial-gradient(ellipse 220px 4px at 38% 86%, rgba(232, 200, 150, 0.25), transparent 70%),
+        radial-gradient(ellipse 280px 5px at 10% 58%, rgba(232, 200, 150, 0.24), transparent 70%),
+        radial-gradient(ellipse 200px 4px at 68% 36%, rgba(232, 200, 150, 0.22), transparent 70%);
+    background-size: 560px 100%;
+    animation: sand-drift-slow 26s linear infinite;
+}
+/* Mid-speed warm gusts near the ground */
+.sand-veil::after {
+    background-image:
+        radial-gradient(ellipse 200px 4px at 18% 68%, rgba(245, 215, 165, 0.36), transparent 70%),
+        radial-gradient(ellipse 240px 4.5px at 50% 80%, rgba(245, 215, 165, 0.33), transparent 70%),
+        radial-gradient(ellipse 170px 3.5px at 78% 88%, rgba(245, 215, 165, 0.35), transparent 70%),
+        radial-gradient(ellipse 140px 3px at 32% 92%, rgba(245, 215, 165, 0.30), transparent 70%),
+        radial-gradient(ellipse 180px 3.5px at 88% 76%, rgba(245, 215, 165, 0.32), transparent 70%);
+    background-size: 420px 100%;
+    animation: sand-drift-fast 12s linear infinite;
+}
+/* Fast, sharp foreground gusts — the whipping wind */
+.sand-gust {
+    position: absolute;
+    inset: 0;
+    background-repeat: repeat-x;
+    background-image:
+        radial-gradient(ellipse 380px 2px at 25% 74%, rgba(250, 225, 180, 0.38), transparent 75%),
+        radial-gradient(ellipse 440px 2.5px at 60% 84%, rgba(250, 225, 180, 0.34), transparent 75%),
+        radial-gradient(ellipse 320px 2px at 85% 92%, rgba(250, 225, 180, 0.36), transparent 75%);
+    background-size: 300px 100%;
+    animation: sand-drift-gust 7s linear infinite;
+}
+@keyframes sand-drift-slow {
+    from { background-position: 0 0; }
+    to   { background-position: -560px 0; }
+}
+@keyframes sand-drift-fast {
+    from { background-position: 0 0; }
+    to   { background-position: -420px 0; }
+}
+@keyframes sand-drift-gust {
+    from { background-position: 0 0; }
+    to   { background-position: -300px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .sand-veil { display: none; }
+}
 .truck-stage,
 .truck-stage-inner,
 .truck-img {

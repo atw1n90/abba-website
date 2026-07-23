@@ -623,6 +623,45 @@ body:not(.page-home) { padding-bottom: 56px; }
     50%      { transform: translateY(-3px); }
 }
 
+/* Homepage dual CTA — drivers (gold) + companies (frosted). Revealed just
+   after the "click to explore" instruction so it doesn't fight the truck. */
+.home-cta-row {
+    position: relative;
+    z-index: 2;
+    margin: 16px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.6s ease 2.8s, transform 0.6s ease 2.8s;
+}
+.truck-home.truck-animated .home-cta-row {
+    opacity: 1;
+    transform: translateY(0);
+}
+.home-cta { padding: 12px 24px; }
+/* Frosted button so it reads cleanly over the bright desert photo */
+.home-cta-ghost {
+    background: rgba(14, 31, 71, 0.55);
+    color: var(--white);
+    border-color: rgba(245, 166, 35, 0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+.home-cta-ghost:hover {
+    background: var(--gold);
+    color: var(--navy);
+    border-color: var(--gold);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-gold);
+}
+@media (max-width: 480px) {
+    .home-cta-row { gap: 10px; margin-top: 12px; }
+    .home-cta { padding: 11px 18px; font-size: 0.85rem; }
+}
+
 /* ============ PAGE HERO (inner pages) ============ */
 .page-hero {
     position: relative;
@@ -1879,6 +1918,25 @@ a.contact-value:hover { color: var(--gold-3); }
     font-size: 0.85rem;
     color: var(--grey-5);
 }
+
+/* Direct-contact card (email/call) — replaces the form until the mailer is wired */
+.contact-direct { display: flex; flex-direction: column; }
+.contact-direct-title {
+    font-family: 'Barlow Condensed', 'Inter', sans-serif;
+    font-size: clamp(1.6rem, 1.2rem + 1.6vw, 2.1rem);
+    line-height: 1.05;
+    color: var(--navy);
+    margin: 10px 0 14px;
+}
+.contact-direct-lead {
+    color: var(--grey-4);
+    font-size: 1.02rem;
+    margin: 0 0 28px;
+}
+.contact-direct-actions { display: flex; flex-direction: column; gap: 14px; }
+.contact-direct-btn { width: 100%; justify-content: center; }
+.contact-direct-btn svg { width: 20px; height: 20px; flex: 0 0 auto; }
+.contact-direct .form-note { text-align: left; margin-top: 22px; }
 
 /* ============ CTA BAND (reusable) ============ */
 .cta-band {

@@ -30,6 +30,60 @@
         });
     }
 
+    /* ----------- Homepage: one-pager request modal ----------- */
+    const opBtn = document.getElementById('onePagerBtn');
+    const opModal = document.getElementById('onePagerModal');
+    if (opBtn && opModal && typeof opModal.showModal === 'function') {
+        const opForm = opModal.querySelector('.op-form');
+        const opStatus = opModal.querySelector('.op-status');
+        const opSubmit = opModal.querySelector('.op-submit');
+
+        const openModal = () => {
+            opStatus.textContent = '';
+            opStatus.className = 'op-status';
+            opModal.showModal();
+        };
+        opBtn.addEventListener('click', openModal);
+        // Close on the small × or a click on the dark backdrop
+        opModal.querySelectorAll('[data-close]').forEach(b => b.addEventListener('click', () => opModal.close()));
+        opModal.addEventListener('click', (e) => { if (e.target === opModal) opModal.close(); });
+
+        opForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const endpoint = opForm.dataset.endpoint;
+            const payload = Object.fromEntries(new FormData(opForm).entries());
+            opSubmit.disabled = true;
+            opStatus.className = 'op-status';
+            opStatus.textContent = 'Sending…';
+            try {
+                const res = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+                if (res.ok) {
+                    opForm.reset();
+                    opStatus.className = 'op-status op-ok';
+                    opStatus.textContent = 'Check your inbox — your one-pager is on the way.';
+                } else {
+                    const j = await res.json().catch(() => ({}));
+                    opStatus.className = 'op-status op-err';
+                    opStatus.textContent = j.error || 'Something went wrong. Please email info@abbaglobalcorp.com.';
+                }
+            } catch (err) {
+                opStatus.className = 'op-status op-err';
+                opStatus.textContent = 'Could not connect. Please email info@abbaglobalcorp.com.';
+            } finally {
+                opSubmit.disabled = false;
+            }
+        });
+    } else if (opBtn) {
+        // Fallback for browsers without <dialog> support: open a pre-filled email
+        opBtn.addEventListener('click', () => {
+            window.location.href = 'mailto:info@abbaglobalcorp.com?subject=One-Pager%20Request';
+        });
+    }
+
     /* ----------- IntersectionObserver: reveal animations (inner pages) ----------- */
     const revealEls = document.querySelectorAll('.fade-in, .slide-up, .slide-left, .slide-right, .zoom-in');
 

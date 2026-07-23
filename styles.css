@@ -662,6 +662,79 @@ body:not(.page-home) { padding-bottom: 56px; }
     .home-cta { padding: 11px 18px; font-size: 0.85rem; }
 }
 
+/* ============ ONE-PAGER REQUEST MODAL ============ */
+.op-modal {
+    width: min(92vw, 440px);
+    padding: 0;
+    border: none;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.55);
+    background: var(--white);
+    color: var(--ink);
+}
+.op-modal::backdrop {
+    background: rgba(10, 20, 45, 0.55);
+    backdrop-filter: blur(3px);
+    -webkit-backdrop-filter: blur(3px);
+}
+.op-form { position: relative; padding: 34px 30px 30px; display: flex; flex-direction: column; }
+.op-close {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border: none;
+    background: transparent;
+    font-size: 1.7rem;
+    line-height: 1;
+    color: var(--grey-5);
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: color .15s ease, background .15s ease;
+}
+.op-close:hover { color: var(--navy); background: var(--grey-1, #f1f1f1); }
+.op-title {
+    font-family: 'Barlow Condensed', 'Inter', sans-serif;
+    font-size: 1.9rem;
+    line-height: 1.05;
+    color: var(--navy);
+    margin: 0 0 8px;
+}
+.op-sub { color: var(--grey-4); font-size: 0.98rem; margin: 0 0 22px; }
+.op-field { display: block; margin-bottom: 14px; }
+.op-field > span {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+}
+.op-field .req { color: var(--gold-3); margin-left: 2px; }
+.op-field .opt { color: var(--grey-5); font-weight: 500; font-size: 0.72rem; margin-left: 4px; }
+.op-field input {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: var(--radius-md);
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: var(--ink);
+    background: var(--white);
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+.op-field input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.15);
+}
+/* Honeypot — kept in the DOM for bots, hidden from real people */
+.op-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.op-submit { width: 100%; justify-content: center; margin-top: 8px; }
+.op-status { margin: 14px 0 0; font-size: 0.9rem; text-align: center; min-height: 1.2em; }
+.op-status.op-ok { color: #1c7c4a; font-weight: 600; }
+.op-status.op-err { color: #b3261e; font-weight: 600; }
+
 /* ============ PAGE HERO (inner pages) ============ */
 .page-hero {
     position: relative;

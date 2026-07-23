@@ -98,7 +98,7 @@
 
     <div class="home-cta-row" aria-label="Quick actions">
         <a href="apply.html" class="btn btn-gold home-cta">Run With ABBA →</a>
-        <a href="mailto:info@abbaglobalcorp.com?subject=One-Pager%20Request&amp;body=Hi%20ABBA%20Global%20Corp%2C%0A%0APlease%20send%20me%20your%20company%20one-pager.%0A%0ACompany%3A%20%0AWhat%20we%27re%20moving%3A%20%0A%0AThanks%2C" class="btn home-cta home-cta-ghost">Get Our One-Pager →</a>
+        <button type="button" id="onePagerBtn" class="btn home-cta home-cta-ghost" aria-haspopup="dialog">Get Our One-Pager →</button>
     </div>
 </section>
 
@@ -115,6 +115,32 @@
         <li><a href="contact.html" data-page="contact">Contact</a></li>
     </ul>
 </nav>
+
+<dialog class="op-modal" id="onePagerModal" aria-labelledby="opTitle">
+    <form class="op-form" data-endpoint="https://mail.abbaglobalcorp.com/api/one-pager">
+        <button type="button" class="op-close" aria-label="Close" data-close>&times;</button>
+        <h2 id="opTitle" class="op-title">Get Our One-Pager</h2>
+        <p class="op-sub">Drop your email and we'll send ABBA Global Corp's company one-pager straight to your inbox.</p>
+
+        <label class="op-field">
+            <span>Work Email <span class="req">*</span></span>
+            <input type="email" name="email" required autocomplete="email" placeholder="you@company.com">
+        </label>
+        <label class="op-field">
+            <span>Company <span class="opt">(optional)</span></span>
+            <input type="text" name="company" autocomplete="organization">
+        </label>
+        <label class="op-field">
+            <span>What you're moving <span class="opt">(optional)</span></span>
+            <input type="text" name="whatMoving" placeholder="e.g. frac sand — Permian Basin">
+        </label>
+        <!-- honeypot: hidden from people, tempting to bots -->
+        <input class="op-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <button type="submit" class="btn btn-gold btn-lg op-submit">Send Me the One-Pager →</button>
+        <p class="op-status" role="status" aria-live="polite"></p>
+    </form>
+</dialog>
 
 <script src="script.js"></script>
 </body>

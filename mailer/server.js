@@ -104,6 +104,11 @@ app.use((req, res, next) => {
   next();
 });
 
+// Friendly root so visiting the bare domain doesn't look broken.
+// This is a background service, not a public website.
+app.get('/', (_req, res) =>
+  res.type('text/plain').send('ABBA Global Corp mailer is running. This is a background service, not a website.'));
+
 app.get('/health', (_req, res) => res.json({ ok: true }));
 
 /* ---------- One-pager request ---------- */

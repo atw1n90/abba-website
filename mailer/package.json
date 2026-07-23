@@ -1,0 +1,17 @@
+{
+  "name": "abba-mailer",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Small mailer service for ABBA Global Corp — sends the company one-pager and contact leads via Brevo SMTP.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.16"
+  }
+}

@@ -1,9 +1,10 @@
 /* =========================================================
    ABBA GLOBAL CORP — MAILER SERVICE
    A small server that sits behind the website and sends email
-   through Brevo SMTP. It does two jobs:
-     1) /api/one-pager  -> emails the company one-pager (PDF) to
-        the requester, and notifies the ABBA inbox of the lead.
+   through the Brevo HTTPS API (port 443 — never blocked by the host,
+   unlike SMTP). It does two jobs:
+     1) /api/one-pager  -> emails the company one-pager (PDF) to the
+        requester, and notifies the ABBA inbox of the lead.
      2) /api/contact    -> forwards a contact message to the ABBA inbox.
 
    All secrets come from environment variables — never hardcoded.
@@ -14,15 +15,11 @@
 const path = require('path');
 const fs = require('fs');
 const express = require('express');
-const nodemailer = require('nodemailer');
 
 /* ---------- Config (all from environment) ---------- */
 const {
   PORT = '3000',
-  BREVO_SMTP_HOST = 'smtp-relay.brevo.com',
-  BREVO_SMTP_PORT = '587',
-  BREVO_SMTP_USER,
-  BREVO_SMTP_KEY,
+  BREVO_API_KEY,             // Brevo > SMTP & API > API Keys (a v3 API key)
   MAIL_FROM,                 // e.g. "ABBA Global Corp <info@abbaglobalcorp.com>"
   MAIL_TO,                   // where lead notifications land, e.g. info@abbaglobalcorp.com
   ALLOWED_ORIGINS = '',      // comma-separated, e.g. "https://abbaglobalcorp.com,https://www.abbaglobalcorp.com"
@@ -30,7 +27,7 @@ const {
   ONE_PAGER_FILENAME = 'ABBA-Global-Corp-One-Pager.pdf',
 } = process.env;
 
-const requiredEnv = { BREVO_SMTP_USER, BREVO_SMTP_KEY, MAIL_FROM, MAIL_TO };
+const requiredEnv = { BREVO_API_KEY, MAIL_FROM, MAIL_TO };
 const missing = Object.entries(requiredEnv).filter(([, v]) => !v).map(([k]) => k);
 if (missing.length) {
   console.error('[mailer] Missing required environment variables: ' + missing.join(', '));
@@ -38,18 +35,51 @@ if (missing.length) {
 }
 
 const allowedOrigins = ALLOWED_ORIGINS.split(',').map(s => s.trim()).filter(Boolean);
+const BREVO_URL = 'https://api.brevo.com/v3/smtp/email';
+const SEND_TIMEOUT_MS = 15000;
 
-/* ---------- Mail transport ---------- */
-const transporter = nodemailer.createTransport({
-  host: BREVO_SMTP_HOST,
-  port: Number(BREVO_SMTP_PORT),
-  secure: false,            // Brevo uses STARTTLS on 587
-  auth: { user: BREVO_SMTP_USER, pass: BREVO_SMTP_KEY },
-});
+// Parse "Name <email>" (or a bare email) into Brevo's sender shape.
+function parseFrom(v) {
+  const m = /^\s*(.*?)\s*<([^>]+)>\s*$/.exec(v);
+  if (m) return { name: m[1] || undefined, email: m[2].trim() };
+  return { email: v.trim() };
+}
+const SENDER = parseFrom(MAIL_FROM);
 
-transporter.verify()
-  .then(() => console.log('[mailer] Connected to Brevo SMTP.'))
-  .catch(err => console.error('[mailer] SMTP verify failed:', err.message));
+// Load the one-pager once at startup and keep it base64-encoded for attaching.
+let onePagerB64 = null;
+try {
+  onePagerB64 = fs.readFileSync(ONE_PAGER_PATH).toString('base64');
+  console.log('[mailer] One-pager loaded (' + Math.round(onePagerB64.length / 1024) + ' KB).');
+} catch {
+  console.error('[mailer] WARNING: one-pager file not found at ' + ONE_PAGER_PATH);
+}
+
+/* ---------- Send via Brevo API (with a hard timeout so it never hangs) ---------- */
+async function sendEmail({ to, subject, html, text, replyTo, attachment }) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), SEND_TIMEOUT_MS);
+  try {
+    const payload = { sender: SENDER, to: [{ email: to }], subject, htmlContent: html };
+    if (text) payload.textContent = text;
+    if (replyTo) payload.replyTo = { email: replyTo };
+    if (attachment) payload.attachment = [attachment];
+
+    const res = await fetch(BREVO_URL, {
+      method: 'POST',
+      headers: { 'api-key': BREVO_API_KEY, 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+      signal: controller.signal,
+    });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => '');
+      throw new Error('Brevo API ' + res.status + ': ' + detail.slice(0, 300));
+    }
+    return true;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 /* ---------- Helpers ---------- */
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -80,7 +110,6 @@ function rateLimited(ip) {
   rec.count += 1;
   return rec.count > MAX_PER_WINDOW;
 }
-// Periodically clear expired entries so the map can't grow unbounded.
 setInterval(() => {
   const now = Date.now();
   for (const [ip, rec] of hits) if (now > rec.resetAt) hits.delete(ip);
@@ -105,7 +134,6 @@ app.use((req, res, next) => {
 });
 
 // Friendly root so visiting the bare domain doesn't look broken.
-// This is a background service, not a public website.
 app.get('/', (_req, res) =>
   res.type('text/plain').send('ABBA Global Corp mailer is running. This is a background service, not a website.'));
 
@@ -120,29 +148,26 @@ app.post('/api/one-pager', async (req, res) => {
     if (website) return res.json({ ok: true });          // honeypot: silently accept bots, send nothing
     if (!isValidEmail(email)) return res.status(400).json({ error: 'Please enter a valid email address.' });
 
-    if (!fs.existsSync(ONE_PAGER_PATH)) {
-      console.error('[mailer] One-pager file not found at ' + ONE_PAGER_PATH);
+    if (!onePagerB64) {
+      console.error('[mailer] one-pager file missing; cannot fulfill request.');
       return res.status(500).json({ error: 'Sorry, something went wrong. Please email us directly.' });
     }
 
     const co = clean(company, 120);
     const moving = clean(whatMoving, 300);
-    const attachments = [{ filename: ONE_PAGER_FILENAME, path: ONE_PAGER_PATH, contentType: 'application/pdf' }];
 
     // 1) Send the one-pager to the requester.
-    await transporter.sendMail({
-      from: MAIL_FROM,
+    await sendEmail({
       to: email,
       replyTo: MAIL_TO,
       subject: 'Your ABBA Global Corp One-Pager',
       text: 'Thanks for your interest in ABBA Global Corp.\n\nOur company one-pager is attached. Questions or ready to move freight? Just reply to this email or call 551-218-8322.\n\n— ABBA Global Corp | Precision Freight, Human Touch',
       html: '<p>Thanks for your interest in <strong>ABBA Global Corp</strong>.</p><p>Our company one-pager is attached. Questions or ready to move freight? Just reply to this email or call <a href="tel:5512188322">551-218-8322</a>.</p><p>— ABBA Global Corp · Precision Freight, Human Touch</p>',
-      attachments,
+      attachment: { content: onePagerB64, name: ONE_PAGER_FILENAME },
     });
 
     // 2) Notify the ABBA inbox so the lead is captured.
-    await transporter.sendMail({
-      from: MAIL_FROM,
+    await sendEmail({
       to: MAIL_TO,
       replyTo: email,
       subject: 'One-pager request — ' + (co || email),
@@ -171,8 +196,7 @@ app.post('/api/contact', async (req, res) => {
     const msg = clean(message, 2000);
     if (!nm || !msg) return res.status(400).json({ error: 'Please include your name and a message.' });
 
-    await transporter.sendMail({
-      from: MAIL_FROM,
+    await sendEmail({
       to: MAIL_TO,
       replyTo: email,
       subject: 'Website contact — ' + nm,
@@ -191,4 +215,4 @@ app.post('/api/contact', async (req, res) => {
   }
 });
 
-app.listen(Number(PORT), () => console.log('[mailer] Listening on port ' + PORT));
+app.listen(Number(PORT), () => console.log('[mailer] Listening on port ' + PORT + ' (sending via Brevo API)'));

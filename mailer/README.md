@@ -1,7 +1,12 @@
 # ABBA Mailer
 
-A small service that sends email through **Brevo SMTP** on behalf of the website.
+A small service that sends email through the **Brevo HTTPS API** on behalf of the website.
 The website itself (static files) cannot send email — this service does it.
+
+> We use Brevo's **API** (over port 443) rather than SMTP, because most cloud hosts
+> (including DigitalOcean) block outbound SMTP ports by default, which makes SMTP hang.
+> The API uses the normal secure web port, so it always goes through. Same free plan,
+> same 300 emails/day.
 
 It handles two things:
 
@@ -16,8 +21,8 @@ The one-pager PDF lives inside this service (`assets/`), so it is **never** publ
 
 ## One-time setup
 
-### 1. Get your Brevo SMTP key
-In Brevo: **SMTP & API → SMTP**. Note your **SMTP login**, and click **Generate a new SMTP key** (this is a password — copy it now, you won't see it again).
+### 1. Get your Brevo API key
+In Brevo: **SMTP & API → API Keys → Generate a new key**. Copy it now (you won't see it again). This is the **v3 API key**, not the SMTP key.
 
 ### 2. Deploy on Coolify
 1. New Resource → point it at this repository.
@@ -27,16 +32,13 @@ In Brevo: **SMTP & API → SMTP**. Note your **SMTP login**, and click **Generat
 
    | Variable | Value |
    |----------|-------|
-   | `BREVO_SMTP_HOST` | `smtp-relay.brevo.com` |
-   | `BREVO_SMTP_PORT` | `587` |
-   | `BREVO_SMTP_USER` | your Brevo SMTP login |
-   | `BREVO_SMTP_KEY` | the SMTP key from step 1 |
+   | `BREVO_API_KEY` | the API key from step 1 |
    | `MAIL_FROM` | `ABBA Global Corp <info@abbaglobalcorp.com>` |
    | `MAIL_TO` | `info@abbaglobalcorp.com` |
    | `ALLOWED_ORIGINS` | `https://abbaglobalcorp.com,https://www.abbaglobalcorp.com` |
 
 5. Give it a domain in Coolify, e.g. **`mail.abbaglobalcorp.com`**.
-6. Deploy. Check the logs — you should see `Connected to Brevo SMTP.`
+6. Deploy. Check the logs — you should see `Listening on port 3000 (sending via Brevo API)` and `One-pager loaded`.
 7. Test: open `https://mail.abbaglobalcorp.com/health` → it should show `{"ok":true}`.
 
 > **Keep it separate from the website.** This runs as its own Coolify app. The one-pager PDF must stay out of the static site's published folder so it isn't publicly downloadable.

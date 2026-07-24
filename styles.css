@@ -33,7 +33,6 @@
     --font-display: 'Barlow Condensed', 'Inter', sans-serif;
 
     --container-max: 1240px;
-    --header-h: 80px;
 }
 
 /* ============ RESET ============ */
@@ -119,7 +118,6 @@ body:not(.page-home) { padding-bottom: 56px; }
     cursor: pointer;
 }
 .btn-lg { padding: 16px 30px; font-size: 1rem; }
-.btn-sm { padding: 9px 16px; font-size: 0.85rem; }
 
 .btn-gold {
     background: var(--gold);
@@ -243,8 +241,6 @@ body:not(.page-home) { padding-bottom: 56px; }
     padding-bottom: 60px;
     isolation: isolate;
 }
-/* .truck-road-bg is no longer needed — desert is now the section background */
-.truck-road-bg { display: none; }
 
 .truck-vignette {
     position: absolute;
@@ -929,15 +925,6 @@ body:not(.page-home) { padding-bottom: 56px; }
     margin: 0 0 20px;
     font-size: 0.97rem;
 }
-.service-link {
-    color: var(--navy);
-    font-weight: 700;
-    font-size: 0.92rem;
-    border-bottom: 2px solid var(--gold);
-    padding-bottom: 2px;
-    transition: color .2s ease, padding .2s ease;
-}
-.service-link:hover { color: var(--gold-3); padding-bottom: 4px; }
 
 /* ============ WHY US ============ */
 .why-grid {
@@ -1352,75 +1339,6 @@ body:not(.page-home) { padding-bottom: 56px; }
     font-size: 1.25rem;
     font-weight: 700;
     text-transform: uppercase;
-}
-
-.haul-callouts {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 40px;
-}
-.haul-callout {
-    padding: 28px 24px;
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    border-left: 4px solid var(--gold);
-    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-}
-.haul-callout:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-}
-.haul-callout h3 {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--navy);
-    margin-bottom: 8px;
-    text-transform: uppercase;
-}
-.haul-callout p { color: var(--grey-4); font-size: 0.95rem; margin: 0; }
-
-/* ============ CLIENTS STRIP ============ */
-.clients-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-    max-width: 760px;
-    margin: 0 auto;
-}
-.client-card {
-    padding: 32px 28px;
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-lg);
-    text-align: center;
-    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-}
-.client-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-md);
-    border-color: var(--gold);
-}
-.client-card-eyebrow {
-    display: block;
-    font-size: 0.7rem;
-    font-weight: 800;
-    color: var(--gold-3);
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-}
-.client-card h3 {
-    font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--navy);
-    text-transform: uppercase;
-    margin: 0;
-}
-@media (max-width: 640px) {
-    .clients-grid { grid-template-columns: 1fr; }
 }
 
 /* ============ SERVICE AREA CALLOUT ============ */
@@ -1934,57 +1852,6 @@ a.contact-value:hover { color: var(--gold-3); }
     border: 1px solid var(--line);
     box-shadow: var(--shadow-md);
 }
-.hp-field { display: none; }
-.form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-}
-.form-field { display: block; margin-bottom: 16px; }
-.form-field > span {
-    display: block;
-    font-size: 0.82rem;
-    font-weight: 700;
-    color: var(--navy);
-    margin-bottom: 6px;
-    letter-spacing: 0.02em;
-}
-.form-field .req {
-    color: var(--gold-3);
-    margin-left: 2px;
-    font-weight: 800;
-}
-.form-field .opt {
-    color: var(--grey-5);
-    font-weight: 500;
-    font-size: 0.74rem;
-    margin-left: 4px;
-    text-transform: none;
-    letter-spacing: 0;
-}
-.form-field input,
-.form-field select,
-.form-field textarea {
-    width: 100%;
-    padding: 13px 16px;
-    border: 1.5px solid var(--line);
-    border-radius: var(--radius-md);
-    font-family: inherit;
-    font-size: 0.97rem;
-    color: var(--ink);
-    background: var(--white);
-    transition: border-color .15s ease, box-shadow .15s ease;
-}
-.form-field input:focus,
-.form-field select:focus,
-.form-field textarea:focus {
-    outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 4px rgba(245, 166, 35, 0.15);
-}
-.form-field textarea { resize: vertical; min-height: 120px; }
-.form-submit { width: 100%; justify-content: center; margin-top: 8px; }
 .form-note {
     margin: 14px 0 0;
     text-align: center;
@@ -1992,7 +1859,7 @@ a.contact-value:hover { color: var(--gold-3); }
     color: var(--grey-5);
 }
 
-/* Direct-contact card (email/call) — replaces the form until the mailer is wired */
+/* Direct-contact card (email/call) — the contact page's primary reach-us block */
 .contact-direct { display: flex; flex-direction: column; }
 .contact-direct-title {
     font-family: 'Barlow Condensed', 'Inter', sans-serif;
@@ -2244,7 +2111,6 @@ a.contact-value:hover { color: var(--gold-3); }
     .mbe-seal { margin: 0 auto; }
     .fleet-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 200px; }
     .fleet-card-lg { grid-row: span 2; }
-    .haul-callouts { grid-template-columns: 1fr; }
     .apply-grid-page { grid-template-columns: 1fr; gap: 40px; }
     .apply-image-frame img { aspect-ratio: 16 / 11; }
     .academy-card { grid-template-columns: 1fr; }
@@ -2256,62 +2122,12 @@ a.contact-value:hover { color: var(--gold-3); }
 }
 
 @media (max-width: 768px) {
-    :root { --header-h: 70px; }
-
-    .nav-utils .nav-cta { display: none; }
-    .main-nav {
-        position: fixed;
-        top: var(--header-h);
-        left: 0;
-        right: 0;
-        background: var(--white);
-        border-top: 1px solid var(--line);
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height .35s ease;
-        box-shadow: 0 12px 24px rgba(14, 31, 71, 0.08);
-    }
-    body.page-home .main-nav {
-        background: rgba(14, 31, 71, 0.95);
-        border-top-color: rgba(255,255,255,0.08);
-    }
-    .main-nav.open {
-        max-height: calc(100vh - var(--header-h));
-        overflow-y: auto;
-    }
-    .nav-list { flex-direction: column; align-items: stretch; padding: 16px; gap: 4px; }
-    .nav-link { justify-content: space-between; padding: 14px 16px; font-size: 1rem; }
-    .dropdown {
-        position: static;
-        transform: none;
-        opacity: 1;
-        visibility: visible;
-        max-height: 0;
-        overflow: hidden;
-        padding: 0;
-        margin: 0;
-        background: var(--off-white);
-        border-radius: var(--radius-md);
-        border-top: none;
-        box-shadow: none;
-        transition: max-height .3s ease, padding .3s ease;
-    }
-    body.page-home .dropdown { background: rgba(0,0,0,0.25); }
-    body.page-home .dropdown li a { color: rgba(255,255,255,0.85); }
-    body.page-home .dropdown li a:hover { background: rgba(245,166,35,0.15); color: var(--gold-2); }
-    .dropdown::before { display: none; }
-    .has-dropdown.open .dropdown { max-height: 500px; padding: 8px; margin-top: 4px; }
-    .dropdown li a { color: var(--navy); padding: 12px 16px; }
-    .dropdown li a:hover { background: var(--gold-soft); color: var(--gold-3); }
-    .mobile-toggle { display: flex; }
-
     .services-grid, .why-grid { grid-template-columns: 1fr; }
     .services-feature img { height: 240px; }
     .fleet-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
     .fleet-card-lg { grid-row: span 1; }
     .apply-grid { grid-template-columns: 1fr; }
     .contact-form { padding: 28px; }
-    .form-row { grid-template-columns: 1fr; gap: 0; margin-bottom: 0; }
     .footer-grid { grid-template-columns: 1fr; gap: 28px; text-align: center; }
     .footer-brand { text-align: center; }
     .footer-tagline { margin-left: auto; margin-right: auto; }
@@ -2323,7 +2139,6 @@ a.contact-value:hover { color: var(--gold-3); }
 
     .truck-home { min-height: 540px; }
     .truck-stage { width: min(92vw, 80vh); aspect-ratio: 16 / 11; }
-    .truck-door-logo { width: 44px; height: 44px; }
     .hotspot-label { padding: 6px 10px; font-size: 0.62rem; letter-spacing: 0.1em; }
     .truck-instruction { font-size: 0.74rem; padding: 0 16px; }
 }

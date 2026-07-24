@@ -1,70 +1,46 @@
-# ABBA Global Corp Website — Multi-Page Rebuild (2026-05-17)
+# ABBA Global Corp Website — Current State (updated 2026-07-23)
 
-## Final architecture
-Multi-page static site. Truck animation is the homepage and the primary navigation.
+Multi-page static site. The homepage is an interactive truck; navigation is a fixed
+bottom sticky-nav present on every page. Deployed on Coolify (auto-deploys on push to
+GitHub `main`). A separate mailer service handles the one-pager + contact leads.
 
-### Files
-- `index.html` — homepage: full-viewport truck only, no scroll, no footer
-- `services.html` — Services
+## Files
+- `index.html` — homepage: full-viewport truck, 4 hotspots, two CTAs, one-pager modal
+- `services.html` — What We Do
 - `about.html` — Who We Are
-- `haul.html` — What We Haul
-- `apply.html` — Drive With Us (1099)
-- `contact.html` — Contact
+- `apply.html` — Drive With Us (1099 drivers + owner-operators)
+- `academy.html` — ABBA Academy
+- `contact.html` — Contact (Email/Call card — no form)
 - `styles.css` — shared theme (white-dominant, navy + gold accents)
-- `script.js` — header behavior, mobile nav, truck animation trigger, scroll reveals, parallax
+- `script.js` — sticky-nav highlight, truck drive-in, scroll reveals, parallax, one-pager modal
+- `mailer/` — standalone Node service (Brevo API) — see `mailer/README.md`
 
-## Navigation (consistent on every page)
-- Home | Services | Who We Are | What We Haul | Drive With Us ▾ | Contact
-- "Drive With Us" dropdown — all open in new tab:
-  - Driver Application (EN/ES)
-  - Owner Operator (EN/ES)
-  - ABBA Academy
-- "Careers" wording removed everywhere — this is 1099 contractor work
-- Active page indicated by gold underline (driven by `body.page-X` class)
+## Homepage
+- Truck drives in and settles; 4 pulsing gold hotspots:
+  - Hood → services.html (What We Do)
+  - Cab → about.html (Who We Are)
+  - Academy → academy.html
+  - Door → apply.html (Drive With Us)
+- Two CTAs under the truck:
+  - **Run With ABBA →** (gold) → apply.html — drivers & owner-operators
+  - **Get Our One-Pager →** (ghost) → opens modal → posts to the mailer, PDF auto-sends
 
-## Homepage behavior
-- `body.page-home` sets `overflow: hidden` on html + body — zero scrollbar
-- Translucent dark header overlay (gold + white nav text)
-- Dark navy gradient + desert-road overlay 25% + edge vignette
-- Truck drives in from a far-distance point, brakes/settles, logo pops onto driver door
-- 4 clickable hotspots (pulsing gold dots + hover tooltips):
-  - Hood → services.html
-  - Cab → about.html
-  - Driver door → apply.html ("Drive With Us — 1099 Opportunities" tooltip)
-  - Back wheels → haul.html
-- Fades in "↑ Click any part of the truck to explore" after truck settles
+## Contact
+- Email/Call card (mailto + tel) plus phone/address/service area. Bilingual note.
+- No web form on the page; the mailer's `/api/contact` endpoint exists for future use.
 
-## Inner-page common pattern
-- Shared header (white, navy text)
-- `.page-hero` banner (dark navy gradient, gold accent line, large display title)
-- Section padding 72px desktop / 56px mobile
-- Alternating white / `#f8f8f8` between content sections
-- `slide-up` / `slide-left` / `slide-right` reveal on scroll with auto-stagger
-- Subtle parallax on key images
-- CTA band before footer
-- Shared white footer
+## Mailer service (mailer/)
+- Sends via **Brevo HTTPS API** (SMTP ports are blocked on the DigitalOcean host).
+- `/api/one-pager` → emails the PDF to the requester + notifies info@ (lead capture).
+- Runs as its own Coolify app at `mail.abbaglobalcorp.com`; needs `BREVO_API_KEY` env var.
+- Security: origin-locked CORS, honeypot, 5/hr per-IP rate limit, input validation, 15s timeout.
 
-## Form & contact
-- Phone, email, address, Facebook link
-- Form dropdown: Freight & transportation services / Owner operator opportunity / Other
-- Netlify form attributes preserved (`data-netlify`, honeypot)
+## Known notes
+- `abba-truck-interactive-map.png.png` and `desert-road-background.jpg.jpg` have double
+  extensions on disk — referenced as-is so they load. Leave as-is.
+- Rate limiter is in-memory (resets on redeploy) — fine for current traffic.
+- Cross-page `<head>`/footer/nav markup is duplicated across 6 files (no build step).
 
-## What to watch
-- Truck hotspot positions over the truck image are still best-guess (4 zones now). Tweak `.hotspot-hood / .hotspot-cab / .hotspot-door / .hotspot-wheels` in `styles.css` after you see them rendered.
-- File `abba-truck-interactive-map.png.png` has a double `.png.png` extension on disk — referenced as-is so it loads.
-- File `desert-road-background.jpg.jpg` likewise has double extension — referenced as-is.
-- Netlify form submission only works once deployed.
-- Bilingual EN/ES toggle from prior versions is removed in this rebuild — applications themselves already split into EN/ES variants.
-
-## Review section
-### Verified
-- 6 HTML files + styles.css + script.js all exist
-- No "Careers" text in any page
-- No DOT/MC/quote text
-- All cross-page links point to correct .html files
-- All 5 external application URLs open in new tab from nav, footer, and apply page
-
-### Next step
-- Open `index.html` in browser, click each truck zone to confirm navigation works
-- Walk all 5 inner pages, check images load, scroll reveals fire, mobile menu opens
-- Once happy with hotspot alignment over the truck, tell me which dots to nudge
+## Backlog / ideas
+- Optional: shared header/footer via a small build step to end the 6-file duplication.
+- Optional: persistent or daily-total rate cap on the mailer if abuse ever appears.

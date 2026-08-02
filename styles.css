@@ -220,6 +220,49 @@ body:not(.page-home) { padding-bottom: 56px; }
     .sticky-nav a { padding: 5px 6px; font-size: 0.6rem; letter-spacing: 0.08em; }
 }
 
+/* ============ LANGUAGE TOGGLE (subtle, top-right) ============ */
+/* Quiet EN·ES switch that mirrors the logo corner without competing with it. */
+.lang-toggle {
+    position: fixed;
+    top: max(2.5vh, 20px);
+    right: max(2vw, 18px);
+    z-index: 90;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 11px;
+    border-radius: 999px;
+    background: rgba(14, 31, 71, 0.5);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.16);
+}
+.lang-toggle a {
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+.lang-toggle a:hover,
+.lang-toggle a:focus-visible {
+    color: var(--gold);
+}
+.lang-toggle .lang-current {
+    color: var(--gold);
+    cursor: default;
+}
+.lang-toggle .lang-sep {
+    color: rgba(255, 255, 255, 0.28);
+    pointer-events: none;
+}
+@media (max-width: 600px) {
+    .lang-toggle { top: 14px; right: 12px; padding: 4px 9px; font-size: 0.62rem; gap: 5px; }
+}
+
 /* ============ HOMEPAGE — FULL-VIEWPORT TRUCK ============ */
 .truck-home {
     position: relative;

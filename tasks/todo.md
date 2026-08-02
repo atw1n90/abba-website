@@ -44,3 +44,29 @@ GitHub `main`). A separate mailer service handles the one-pager + contact leads.
 ## Backlog / ideas
 - Optional: shared header/footer via a small build step to end the 6-file duplication.
 - Optional: persistent or daily-total rate cap on the mailer if abuse ever appears.
+
+---
+
+# Active task: Full Spanish (ES) website (started 2026-08-02)
+
+Full Spanish mirror in a `/es/` folder + a subtle EN·ES toggle on every page.
+Apply page stays a shared bilingual hub (all 4 cards kept); only its wrapper copy
+is translated on the ES side.
+
+- [x] Add subtle `.lang-toggle` styles to styles.css (fixed top-right pill, quiet)
+- [x] Add EN·ES toggle to all 6 English pages (link each to its ES twin)
+- [x] Build `/es/index.html`   (Home + one-pager modal, Brevo endpoint kept)
+- [x] Build `/es/about.html`   (Quiénes Somos)
+- [x] Build `/es/services.html`(Qué Hacemos)
+- [x] Build `/es/academy.html` (Academia ABBA)
+- [x] Build `/es/contact.html` (Contacto — same phone/email/mailer)
+- [x] Build `/es/apply.html`   (Conduzca con Nosotros — 4 cards kept, wrapper in ES)
+- [x] Add hreflang alternate tags (en / es / x-default) to every page
+- [x] Add ES pages to sitemap.xml
+- [x] Verify relative paths (../styles.css, ../images), links, toggle mapping — all 200s
+
+Also: made the one-pager modal's status messages language-aware in script.js
+(Spanish on html lang="es", English otherwise). DONE 2026-08-02 — not yet committed/deployed.
+
+Spanish = natural professional Latin-American Spanish for Permian oilfield drivers.
+All external links (Netlify apps, Facebook), phone, email, one-pager endpoint stay identical.

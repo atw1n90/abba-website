@@ -33,6 +33,21 @@
     /* ----------- Homepage: one-pager request modal ----------- */
     const opBtn = document.getElementById('onePagerBtn');
     const opModal = document.getElementById('onePagerModal');
+    // Localized status messages — Spanish on the /es/ pages (html lang="es"), English otherwise.
+    const isES = (document.documentElement.lang || '').toLowerCase().indexOf('es') === 0;
+    const opMsg = isES
+        ? {
+            sending: 'Enviando…',
+            ok: 'Revise su bandeja de entrada — su hoja informativa va en camino.',
+            err: 'Algo salió mal. Escríbanos a info@abbaglobalcorp.com.',
+            conn: 'No se pudo conectar. Escríbanos a info@abbaglobalcorp.com.',
+        }
+        : {
+            sending: 'Sending…',
+            ok: 'Check your inbox — your one-pager is on the way.',
+            err: 'Something went wrong. Please email info@abbaglobalcorp.com.',
+            conn: 'Could not connect. Please email info@abbaglobalcorp.com.',
+        };
     if (opBtn && opModal && typeof opModal.showModal === 'function') {
         const opForm = opModal.querySelector('.op-form');
         const opStatus = opModal.querySelector('.op-status');
@@ -54,7 +69,7 @@
             const payload = Object.fromEntries(new FormData(opForm).entries());
             opSubmit.disabled = true;
             opStatus.className = 'op-status';
-            opStatus.textContent = 'Sending…';
+            opStatus.textContent = opMsg.sending;
             try {
                 const res = await fetch(endpoint, {
                     method: 'POST',
@@ -64,15 +79,15 @@
                 if (res.ok) {
                     opForm.reset();
                     opStatus.className = 'op-status op-ok';
-                    opStatus.textContent = 'Check your inbox — your one-pager is on the way.';
+                    opStatus.textContent = opMsg.ok;
                 } else {
                     const j = await res.json().catch(() => ({}));
                     opStatus.className = 'op-status op-err';
-                    opStatus.textContent = j.error || 'Something went wrong. Please email info@abbaglobalcorp.com.';
+                    opStatus.textContent = j.error || opMsg.err;
                 }
             } catch (err) {
                 opStatus.className = 'op-status op-err';
-                opStatus.textContent = 'Could not connect. Please email info@abbaglobalcorp.com.';
+                opStatus.textContent = opMsg.conn;
             } finally {
                 opSubmit.disabled = false;
             }

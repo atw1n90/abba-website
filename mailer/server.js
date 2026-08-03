@@ -88,10 +88,21 @@ function isValidEmail(v) {
   return typeof v === 'string' && v.length <= 254 && EMAIL_RE.test(v);
 }
 
-// Trim + cap length, and neutralize HTML so nothing can be injected into the email body.
+// Trim + cap length, strip control characters (incl. CR/LF — defense-in-depth against
+// header injection if a field is ever reused in a subject), and neutralize HTML.
 function clean(v, max = 500) {
   if (typeof v !== 'string') return '';
   return v.trim().slice(0, max)
+    .replace(/[\x00-\x1F\x7F]/g, ' ')
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Same as clean() but preserves line breaks — for multi-line message bodies only.
+function cleanMultiline(v, max = 2000) {
+  if (typeof v !== 'string') return '';
+  return v.trim().slice(0, max)
+    .replace(/\r\n?/g, '\n')                     // normalize line endings
+    .replace(/[\x00-\x09\x0B-\x1F\x7F]/g, ' ')   // strip control chars except \n (\x0A)
     .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
@@ -117,6 +128,7 @@ setInterval(() => {
 
 /* ---------- App ---------- */
 const app = express();
+app.disable('x-powered-by'); // don't advertise the framework
 app.set('trust proxy', 1); // behind Coolify's reverse proxy, so req.ip is the real client
 app.use(express.json({ limit: '16kb' }));
 
@@ -193,7 +205,7 @@ app.post('/api/contact', async (req, res) => {
     if (website) return res.json({ ok: true });          // honeypot
     if (!isValidEmail(email)) return res.status(400).json({ error: 'Please enter a valid email address.' });
     const nm = clean(name, 120);
-    const msg = clean(message, 2000);
+    const msg = cleanMultiline(message, 2000);
     if (!nm || !msg) return res.status(400).json({ error: 'Please include your name and a message.' });
 
     await sendEmail({
@@ -213,6 +225,19 @@ app.post('/api/contact', async (req, res) => {
     console.error('[mailer] contact error:', err.message);
     return res.status(500).json({ error: 'Sorry, something went wrong. Please email us directly.' });
   }
+});
+
+/* ---------- Catch-all error handler — never leak internals to the client ---------- */
+// Handles body-parser JSON errors (malformed request bodies) and anything else
+// that bubbles up, returning a generic message instead of a stack trace.
+app.use((err, _req, res, next) => {
+  console.error('[mailer] unhandled error:', err && err.message);
+  if (res.headersSent) return next(err);
+  const status = err && (err.status || err.statusCode);
+  if (status === 400 || (err && err.type === 'entity.parse.failed')) {
+    return res.status(400).json({ error: 'Bad request.' });
+  }
+  return res.status(500).json({ error: 'Something went wrong.' });
 });
 
 app.listen(Number(PORT), () => console.log('[mailer] Listening on port ' + PORT + ' (sending via Brevo API)'));

@@ -23,7 +23,7 @@ const {
   MAIL_FROM,                 // e.g. "ABBA Global Corp <info@abbaglobalcorp.com>"
   MAIL_TO,                   // where lead notifications land, e.g. info@abbaglobalcorp.com
   ALLOWED_ORIGINS = '',      // comma-separated, e.g. "https://abbaglobalcorp.com,https://www.abbaglobalcorp.com"
-  ONE_PAGER_PATH = path.join(__dirname, 'assets', 'AGC_1Pgr_7.23.26.pdf'),
+  ONE_PAGER_PATH = path.join(__dirname, 'assets', 'AGC_1Pgr_8.5.26.pdf'),
   ONE_PAGER_FILENAME = 'ABBA-Global-Corp-One-Pager.pdf',
 } = process.env;
 
@@ -173,8 +173,8 @@ app.post('/api/one-pager', async (req, res) => {
       to: email,
       replyTo: MAIL_TO,
       subject: 'Your ABBA Global Corp One-Pager',
-      text: 'Thanks for your interest in ABBA Global Corp.\n\nOur company one-pager is attached. Questions or ready to move freight? Just reply to this email or call 551-218-8322.\n\n— ABBA Global Corp | Precision Freight, Human Touch',
-      html: '<p>Thanks for your interest in <strong>ABBA Global Corp</strong>.</p><p>Our company one-pager is attached. Questions or ready to move freight? Just reply to this email or call <a href="tel:5512188322">551-218-8322</a>.</p><p>— ABBA Global Corp · Precision Freight, Human Touch</p>',
+      text: 'Thanks for your interest in ABBA Global Corp.\n\nOur company one-pager is attached. Questions or ready to move freight? Just reply to this email.\n\n— ABBA Global Corp | Precision Freight, Human Touch',
+      html: '<p>Thanks for your interest in <strong>ABBA Global Corp</strong>.</p><p>Our company one-pager is attached. Questions or ready to move freight? Just reply to this email.</p><p>— ABBA Global Corp · Precision Freight, Human Touch</p>',
       attachment: { content: onePagerB64, name: ONE_PAGER_FILENAME },
     });
 

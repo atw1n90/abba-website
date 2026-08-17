@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABBA Global Corp - Formulario de Interés Conductores y Dueños Operadores</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);padding:20px}.container{max-width:760px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.2);overflow:hidden}.header{background:linear-gradient(135deg,#2c5282,#4a6fa5);color:#fff;padding:30px;text-align:center}.header h1{font-size:1.8em;margin-bottom:5px}.header p{font-size:1em;opacity:0.95}.form-content{padding:30px}.intro{background:#f0f4fa;border-left:3px solid #4a6fa5;padding:12px 15px;border-radius:4px;font-size:0.9em;color:#2d3748;margin-bottom:22px;line-height:1.5}.section{margin-bottom:25px}.section-title{font-size:1.2em;color:#2c5282;margin-bottom:10px;padding-bottom:5px;border-bottom:2px solid #4a6fa5;font-weight:600}.form-row{display:grid;gap:12px;margin-bottom:12px}.form-row.c2{grid-template-columns:1fr 1fr}.form-row.c3{grid-template-columns:1fr 1fr 1fr}.form-group{display:flex;flex-direction:column}label{font-weight:600;color:#2d3748;margin-bottom:4px;font-size:0.85em}input,select,textarea{padding:9px;border:2px solid #e2e8f0;border-radius:4px;font-size:0.95em;font-family:inherit;width:100%}input:focus,select:focus,textarea:focus{outline:none;border-color:#4a6fa5}.rg{display:flex;gap:14px;margin-top:5px;flex-wrap:wrap}.ro{display:flex;align-items:center;gap:6px;font-weight:normal;font-size:0.9em;cursor:pointer}input[type="radio"],input[type="checkbox"]{width:16px;height:16px;cursor:pointer}.req{color:#e53e3e}.info{font-size:0.8em;color:#718096;font-style:italic;margin:5px 0}.hidden{display:none}.consent{background:#f7fafc;border:2px solid #cbd5e0;border-radius:6px;padding:14px;margin-top:10px}.consent label{display:flex;align-items:flex-start;gap:10px;font-weight:normal;font-size:0.85em;line-height:1.45;cursor:pointer}.consent input{margin-top:3px;flex-shrink:0}.consent a{color:#2c5282}.btn{background:linear-gradient(135deg,#2c5282,#4a6fa5);color:#fff;border:none;padding:14px 30px;font-size:1em;font-weight:600;border-radius:6px;cursor:pointer;width:100%;margin-top:20px}.btn:hover{opacity:0.9}.btn:disabled{opacity:0.6;cursor:not-allowed}.hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}.success{display:none;padding:40px 30px;text-align:center}.success h2{color:#2c5282;margin-bottom:10px}.success p{color:#4a5568;line-height:1.5}@media(max-width:640px){.form-row.c2,.form-row.c3{grid-template-columns:1fr}.header h1{font-size:1.4em}.form-content{padding:20px}}
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header">
+<h1>ABBA GLOBAL CORP</h1>
+<p>Formulario de Interés — Conductores y Dueños Operadores</p>
+</div>
+
+<form class="form-content" id="prescreenForm" onsubmit="handleSubmit(event)" novalidate>
+<div class="intro">Toma aproximadamente 1 minuto. Cuéntenos un poco sobre usted y nos comunicaremos para hablar de las oportunidades disponibles. Los candidatos calificados recibirán la solicitud completa por correo electrónico.</div>
+
+<div class="hp" aria-hidden="true"><label>Website</label><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+
+<div class="section">
+<h2 class="section-title">Información de Contacto</h2>
+<div class="form-row c2">
+<div class="form-group"><label>Nombre <span class="req">*</span></label><input type="text" name="firstName" required autocomplete="given-name"></div>
+<div class="form-group"><label>Apellido <span class="req">*</span></label><input type="text" name="lastName" required autocomplete="family-name"></div>
+</div>
+<div class="form-row c2">
+<div class="form-group"><label>Teléfono <span class="req">*</span></label><input type="tel" name="phone" required autocomplete="tel" inputmode="tel"></div>
+<div class="form-group"><label>Correo Electrónico <span class="req">*</span></label><input type="email" name="email" required autocomplete="email" inputmode="email"></div>
+</div>
+<div class="form-row c3">
+<div class="form-group"><label>Ciudad <span class="req">*</span></label><input type="text" name="city" required autocomplete="address-level2"></div>
+<div class="form-group"><label>Estado <span class="req">*</span></label><input type="text" name="state" required maxlength="2" placeholder="TX" autocomplete="address-level1" style="text-transform:uppercase"></div>
+<div class="form-group"><label>Idioma Preferido <span class="req">*</span></label><select name="language" required><option value="">Seleccione...</option><option value="english">English</option><option value="spanish">Español</option></select></div>
+</div>
+</div>
+
+<div class="section">
+<h2 class="section-title">Posición</h2>
+<div class="form-row c2">
+<div class="form-group"><label>Me interesa como <span class="req">*</span></label><div class="rg"><label class="ro"><input type="radio" name="applicantType" value="driver" required onchange="toggleOO()">Conductor</label><label class="ro"><input type="radio" name="applicantType" value="owner-operator" onchange="toggleOO()">Dueño Operador</label></div></div>
+<div class="form-group"><label>Fecha Disponible <span class="req">*</span></label><input type="date" name="dateAvailable" required></div>
+</div>
+</div>
+
+<div class="section">
+<h2 class="section-title">Calificaciones Rápidas</h2>
+<div class="form-row c2">
+<div class="form-group"><label>¿Tiene una CDL Clase A vigente? <span class="req">*</span></label><div class="rg"><label class="ro"><input type="radio" name="hasCDL" value="yes" required>Sí</label><label class="ro"><input type="radio" name="hasCDL" value="no">No</label></div></div>
+<div class="form-group"><label>Años de experiencia con CDL <span class="req">*</span></label><select name="cdlYears" required><option value="">Seleccione...</option><option value="less-than-1">Menos de 1</option><option value="1-2">1–2</option><option value="3-5">3–5</option><option value="5-plus">5+</option></select></div>
+</div>
+<div class="form-row c2">
+<div class="form-group"><label>Estado de la CDL</label><input type="text" name="licState" maxlength="2" placeholder="TX" style="text-transform:uppercase"></div>
+<div class="form-group"><label>Vencimiento de la CDL</label><input type="date" name="licExp"></div>
+</div>
+<div class="form-row c2">
+<div class="form-group"><label>¿Tiene 23 años o más? <span class="req">*</span></label><div class="rg"><label class="ro"><input type="radio" name="ageCheck" value="yes" required>Sí</label><label class="ro"><input type="radio" name="ageCheck" value="no">No</label></div></div>
+<div class="form-group"><label>¿Autorizado legalmente para trabajar en EE.UU.? <span class="req">*</span></label><div class="rg"><label class="ro"><input type="radio" name="workAuth" value="yes" required>Sí</label><label class="ro"><input type="radio" name="workAuth" value="no">No</label></div></div>
+</div>
+<div class="form-row c2">
+<div class="form-group"><label>¿Suspensiones de licencia, DUI/DWI o violaciones graves en los últimos 3 años? <span class="req">*</span></label><div class="rg"><label class="ro"><input type="radio" name="violations3yr" value="no" required>No</label><label class="ro"><input type="radio" name="violations3yr" value="yes">Sí</label></div></div>
+<div class="form-group"><label>¿Experiencia en arena de fracking / campos petroleros?</label><div class="rg"><label class="ro"><input type="radio" name="oilfieldExp" value="yes">Sí</label><label class="ro"><input type="radio" name="oilfieldExp" value="no">No</label></div></div>
+</div>
+</div>
+
+<div class="section hidden" id="ooSection">
+<h2 class="section-title">Equipo del Dueño Operador</h2>
+<div class="form-row c3">
+<div class="form-group"><label>Año del Tractor</label><input type="number" name="tractorYear" min="1990" max="2030" inputmode="numeric"></div>
+<div class="form-group"><label>Marca del Tractor</label><input type="text" name="tractorMake" placeholder="Peterbilt, Kenworth..."></div>
+<div class="form-group"><label>¿Es dueño de un remolque?</label><select name="ownsTrailer"><option value="">Seleccione...</option><option value="yes">Sí</option><option value="no">No (solo tractor / power only)</option></select></div>
+</div>
+<div class="form-row"><div class="form-group"><label>¿Actualmente arrendado a otra compañía?</label><div class="rg"><label class="ro"><input type="radio" name="workOther" value="yes">Sí</label><label class="ro"><input type="radio" name="workOther" value="no">No</label></div></div></div>
+</div>
+
+<div class="section">
+<h2 class="section-title">¿Algo más?</h2>
+<div class="form-row"><div class="form-group"><label>Comentarios (opcional)</label><textarea name="comments" rows="3" placeholder="Mejor hora para llamar, preguntas, etc."></textarea></div></div>
+</div>
+
+<div class="consent">
+<label><input type="checkbox" name="consentContact" value="yes" required>Acepto que ABBA Global Corp me contacte por teléfono, mensaje de texto o correo electrónico sobre oportunidades para conductores y dueños operadores. Pueden aplicar tarifas de mensajes y datos; responda STOP para dejar de recibir textos. Entiendo que este es un formulario de interés, no una oferta de empleo ni de arrendamiento, y que recibiré la solicitud completa si soy seleccionado. Vea nuestra <a href="/privacidad.html" target="_blank" rel="noopener">Política de Privacidad</a>.</label>
+</div>
+
+<button type="submit" class="btn">Enviar</button>
+</form>
+
+<div class="success" id="successBox">
+<h2>¡Gracias!</h2>
+<p>Recibimos su información y nos comunicaremos pronto. Si califica, recibirá la solicitud completa por correo electrónico.</p>
+</div>
+</div>
+
+<script>
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycby-wkMKJlHIU9vRa1x2qf56wtdU_8FQh6LTqSPJ4vRfe88jN9UabsgDDpx774xOIsdejA/exec';
+const FORM_TYPE='prescreen-spanish';
+const MSG={fill:'Por favor complete todos los campos requeridos.',submitting:'Enviando...',err:'Error: ',errSuffix:'\n\nPor favor intente de nuevo o llámenos.',net:'Error al enviar: ',netSuffix:'\n\nVerifique su conexión e intente de nuevo.'};
+
+(function(){const t=new URLSearchParams(location.search).get('type');const v=t==='oo'||t==='owner-operator'?'owner-operator':t==='driver'?'driver':null;if(v){const r=document.querySelector('input[name="applicantType"][value="'+v+'"]');if(r){r.checked=true;}}document.addEventListener('DOMContentLoaded',toggleOO);})();
+function toggleOO(){
+  const isOO=document.querySelector('input[name="applicantType"]:checked')?.value==='owner-operator';
+  document.getElementById('ooSection').classList.toggle('hidden',!isOO);
+}
+
+async function handleSubmit(e){
+  e.preventDefault();
+  const form=e.target;
+  if(!form.checkValidity()){form.reportValidity();alert(MSG.fill);return;}
+  const btn=form.querySelector('.btn');
+  const origText=btn.textContent;
+  btn.textContent=MSG.submitting;
+  btn.disabled=true;
+
+  const fd=new FormData(form);
+  if(fd.get('website')){form.reset();btn.textContent=origText;btn.disabled=false;return;}
+  const data={formType:FORM_TYPE,submittedAt:new Date().toISOString(),source:location.href};
+  fd.forEach((v,k)=>{if(k!=='website')data[k]=(typeof v==='string')?v.trim():v;});
+  if(data.state)data.state=data.state.toUpperCase();
+  if(data.licState)data.licState=data.licState.toUpperCase();
+
+  try{
+    const res=await fetch(SCRIPT_URL,{method:'POST',body:JSON.stringify(data)});
+    const result=await res.json();
+    if(result.result==='success'){
+      form.style.display='none';
+      document.getElementById('successBox').style.display='block';
+      window.scrollTo({top:0,behavior:'smooth'});
+    }else{
+      alert(MSG.err+(result.message||'Unknown')+MSG.errSuffix);
+      btn.textContent=origText;btn.disabled=false;
+    }
+  }catch(err){
+    alert(MSG.net+err.message+MSG.netSuffix);
+    btn.textContent=origText;btn.disabled=false;
+  }
+}
+</script>
+</body>
+</html>

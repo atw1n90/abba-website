@@ -4,15 +4,196 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ABBA Global Corp - Driver & Owner Operator Interest Form</title>
+<link rel="icon" type="image/jpeg" href="ABBA%20Global%20Corp_LOGO.jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Barlow+Condensed:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:'Segoe UI',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);padding:20px}.container{max-width:760px;margin:0 auto;background:#fff;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.2);overflow:hidden}.header{background:linear-gradient(135deg,#2c5282,#4a6fa5);color:#fff;padding:30px;text-align:center}.header h1{font-size:1.8em;margin-bottom:5px}.header p{font-size:1em;opacity:0.95}.form-content{padding:30px}.intro{background:#f0f4fa;border-left:3px solid #4a6fa5;padding:12px 15px;border-radius:4px;font-size:0.9em;color:#2d3748;margin-bottom:22px;line-height:1.5}.section{margin-bottom:25px}.section-title{font-size:1.2em;color:#2c5282;margin-bottom:10px;padding-bottom:5px;border-bottom:2px solid #4a6fa5;font-weight:600}.form-row{display:grid;gap:12px;margin-bottom:12px}.form-row.c2{grid-template-columns:1fr 1fr}.form-row.c3{grid-template-columns:1fr 1fr 1fr}.form-group{display:flex;flex-direction:column}label{font-weight:600;color:#2d3748;margin-bottom:4px;font-size:0.85em}input,select,textarea{padding:9px;border:2px solid #e2e8f0;border-radius:4px;font-size:0.95em;font-family:inherit;width:100%}input:focus,select:focus,textarea:focus{outline:none;border-color:#4a6fa5}.rg{display:flex;gap:14px;margin-top:5px;flex-wrap:wrap}.ro{display:flex;align-items:center;gap:6px;font-weight:normal;font-size:0.9em;cursor:pointer}input[type="radio"],input[type="checkbox"]{width:16px;height:16px;cursor:pointer}.req{color:#e53e3e}.info{font-size:0.8em;color:#718096;font-style:italic;margin:5px 0}.hidden{display:none}.consent{background:#f7fafc;border:2px solid #cbd5e0;border-radius:6px;padding:14px;margin-top:10px}.consent label{display:flex;align-items:flex-start;gap:10px;font-weight:normal;font-size:0.85em;line-height:1.45;cursor:pointer}.consent input{margin-top:3px;flex-shrink:0}.consent a{color:#2c5282}.btn{background:linear-gradient(135deg,#2c5282,#4a6fa5);color:#fff;border:none;padding:14px 30px;font-size:1em;font-weight:600;border-radius:6px;cursor:pointer;width:100%;margin-top:20px}.btn:hover{opacity:0.9}.btn:disabled{opacity:0.6;cursor:not-allowed}.hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}.success{display:none;padding:40px 30px;text-align:center}.success h2{color:#2c5282;margin-bottom:10px}.success p{color:#4a5568;line-height:1.5}@media(max-width:640px){.form-row.c2,.form-row.c3{grid-template-columns:1fr}.header h1{font-size:1.4em}.form-content{padding:20px}}
-.sitefoot{max-width:760px;margin:18px auto 0;text-align:center;font-size:0.85em;color:rgba(255,255,255,0.75)}.sitefoot a{color:#fff;font-weight:600;border-bottom:1px solid rgba(255,255,255,0.45)}.sitefoot a:hover{border-bottom-color:#fff}
+*{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --navy:#0E1F47;
+  --navy-2:#0A1838;
+  --gold:#F5A623;
+  --gold-2:#F2B84B;
+  --gold-3:#C9871A;
+  --gold-soft:#FFF7E6;
+  --ink:#14213D;
+  --grey-4:#4B5563;
+  --grey-5:#6B7280;
+  --white:#FFFFFF;
+  --off-white:#F8F8F8;
+  --line:#ECEEF2;
+  --radius-md:10px;
+  --radius-lg:18px;
+  --font-sans:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --font-display:'Barlow Condensed','Inter',sans-serif;
+}
+
+body{
+  font-family:var(--font-sans);
+  color:var(--ink);
+  background:var(--navy-2);
+  background-image:radial-gradient(ellipse at 50% -10%,rgba(245,166,35,.16),transparent 60%),linear-gradient(160deg,var(--navy) 0%,var(--navy-2) 100%);
+  background-attachment:fixed;
+  padding:28px 20px 22px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+}
+
+.container{
+  max-width:760px;
+  margin:0 auto;
+  background:var(--white);
+  border-radius:var(--radius-lg);
+  box-shadow:0 20px 40px -10px rgba(0,0,0,.45),0 8px 18px -6px rgba(0,0,0,.3);
+  overflow:hidden;
+}
+
+/* ---------- Header ---------- */
+.header{
+  background:linear-gradient(150deg,var(--navy) 0%,var(--navy-2) 100%);
+  color:var(--white);
+  padding:34px 30px 28px;
+  text-align:center;
+  position:relative;
+  border-bottom:3px solid var(--gold);
+}
+.header::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(245,166,35,.18),transparent 65%);pointer-events:none}
+.header-logo{width:64px;height:64px;border-radius:50%;object-fit:cover;display:block;margin:0 auto 14px;border:2px solid rgba(245,166,35,.55);box-shadow:0 6px 18px rgba(0,0,0,.35);position:relative;z-index:1}
+.header h1{
+  font-family:var(--font-display);
+  font-size:2.1rem;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  line-height:1.05;
+  position:relative;
+  z-index:1;
+}
+.header h1 .hl-gold{color:var(--gold)}
+.header-divider{display:flex;align-items:center;justify-content:center;gap:10px;margin:12px auto 10px;max-width:260px;position:relative;z-index:1}
+.header-divider .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(245,166,35,.7),transparent)}
+.header-divider .diamond{color:var(--gold);font-size:.6rem}
+.header p{font-size:.95rem;font-weight:500;opacity:.9;position:relative;z-index:1}
+
+/* ---------- Form body ---------- */
+.form-content{padding:30px}
+.intro{
+  background:var(--gold-soft);
+  border-left:3px solid var(--gold);
+  padding:13px 16px;
+  border-radius:var(--radius-md);
+  font-size:.9rem;
+  color:var(--grey-4);
+  margin-bottom:26px;
+  line-height:1.5;
+}
+.section{margin-bottom:28px}
+.section-title{
+  font-family:var(--font-display);
+  font-size:1.35rem;
+  font-weight:700;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  color:var(--navy);
+  margin-bottom:14px;
+  padding-bottom:8px;
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+.section-title::after{content:"";position:absolute;left:0;bottom:-1px;width:46px;height:3px;background:var(--gold);border-radius:2px}
+
+.form-row{display:grid;gap:14px;margin-bottom:14px}
+.form-row.c2{grid-template-columns:1fr 1fr}
+.form-row.c3{grid-template-columns:1fr 1fr 1fr}
+.form-group{display:flex;flex-direction:column}
+label{font-weight:600;color:var(--ink);margin-bottom:5px;font-size:.83rem}
+input,select,textarea{
+  padding:11px 12px;
+  border:1.5px solid var(--line);
+  border-radius:var(--radius-md);
+  font-size:.95rem;
+  font-family:inherit;
+  color:var(--ink);
+  background:var(--white);
+  width:100%;
+  transition:border-color .18s ease,box-shadow .18s ease;
+}
+input::placeholder,textarea::placeholder{color:#B6BCC7}
+input:hover,select:hover,textarea:hover{border-color:#D5D9E0}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(245,166,35,.18)}
+.rg{display:flex;gap:16px;margin-top:6px;flex-wrap:wrap}
+.ro{display:flex;align-items:center;gap:7px;font-weight:500;font-size:.9rem;color:var(--grey-4);cursor:pointer;margin-bottom:0}
+input[type="radio"],input[type="checkbox"]{width:16px;height:16px;cursor:pointer;accent-color:var(--gold-3);flex-shrink:0}
+input[type="radio"]:focus-visible,input[type="checkbox"]:focus-visible{outline:2px solid var(--gold);outline-offset:2px;box-shadow:none}
+.req{color:#D64545}
+.info{font-size:.8rem;color:var(--grey-5);font-style:italic;margin:5px 0}
+.hidden{display:none}
+
+.consent{
+  background:var(--off-white);
+  border:1px solid var(--line);
+  border-radius:var(--radius-md);
+  padding:16px;
+  margin-top:12px;
+}
+.consent label{display:flex;align-items:flex-start;gap:11px;font-weight:400;font-size:.85rem;line-height:1.5;color:var(--grey-4);cursor:pointer;margin-bottom:0}
+.consent input{margin-top:3px;flex-shrink:0;width:auto}
+.consent a{color:var(--gold-3);font-weight:600;text-decoration:underline;text-underline-offset:2px}
+
+.btn{
+  background:var(--gold);
+  color:var(--navy);
+  border:2px solid var(--gold);
+  padding:15px 30px;
+  font-size:1rem;
+  font-weight:700;
+  font-family:inherit;
+  border-radius:var(--radius-md);
+  cursor:pointer;
+  width:100%;
+  margin-top:22px;
+  box-shadow:0 8px 24px -8px rgba(245,166,35,.45);
+  transition:transform .2s ease,box-shadow .2s ease,background .2s ease,border-color .2s ease;
+}
+.btn:hover:not(:disabled){background:var(--gold-2);border-color:var(--gold-2);transform:translateY(-2px);box-shadow:0 12px 30px -8px rgba(245,166,35,.55)}
+.btn:active:not(:disabled){transform:translateY(0)}
+.btn:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.btn:disabled{opacity:.55;cursor:not-allowed;box-shadow:none;transform:none}
+
+.hp{position:absolute;left:-9999px;opacity:0;height:0;overflow:hidden}
+
+.success{display:none;padding:52px 30px;text-align:center}
+.success-mark{width:60px;height:60px;border-radius:50%;background:var(--gold-soft);border:2px solid var(--gold);color:var(--gold-3);font-size:1.8rem;line-height:56px;font-weight:700;margin:0 auto 18px}
+.success h2{font-family:var(--font-display);font-size:1.9rem;text-transform:uppercase;letter-spacing:.05em;color:var(--navy);margin-bottom:10px}
+.success p{color:var(--grey-4);line-height:1.6;max-width:440px;margin:0 auto}
+
+.sitefoot{max-width:760px;margin:20px auto 0;text-align:center;font-size:.85rem;color:rgba(255,255,255,.68)}
+.sitefoot a{color:rgba(255,255,255,.92);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(245,166,35,.5);padding-bottom:1px}
+.sitefoot a:hover{color:var(--gold-2);border-bottom-color:var(--gold-2)}
+
+@media(max-width:640px){
+  body{padding:16px 14px}
+  .form-row.c2,.form-row.c3{grid-template-columns:1fr}
+  .header{padding:26px 20px 22px}
+  .header h1{font-size:1.7rem}
+  .header-logo{width:54px;height:54px}
+  .form-content{padding:22px 20px}
+  .section-title{font-size:1.2rem}
+}
+@media(prefers-reduced-motion:reduce){
+  *{transition:none!important}
+  .btn:hover:not(:disabled){transform:none}
+}
 </style>
 </head>
 <body>
 <div class="container">
 <div class="header">
-<h1>ABBA GLOBAL CORP</h1>
+<img class="header-logo" src="ABBA%20Global%20Corp_LOGO.jpeg" alt="ABBA Global Corp logo" width="64" height="64">
+<h1><span class="hl-gold">ABBA</span> Global Corp</h1>
+<div class="header-divider" aria-hidden="true"><span class="line"></span><span class="diamond">&#9670;</span><span class="line"></span></div>
 <p>Driver &amp; Owner Operator Interest Form</p>
 </div>
 
@@ -89,6 +270,7 @@
 </form>
 
 <div class="success" id="successBox">
+<div class="success-mark" aria-hidden="true">&#10003;</div>
 <h2>Thank you!</h2>
 <p>We received your information and will reach out shortly. If you qualify, you will receive the full application by email.</p>
 </div>

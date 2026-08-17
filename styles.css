@@ -696,6 +696,26 @@ body:not(.page-home) { padding-bottom: 56px; }
     transform: translateY(-2px);
     box-shadow: var(--shadow-gold);
 }
+/* The home splash is locked to one viewport, so the legal links live inside it */
+.home-legal {
+    position: relative;
+    z-index: 2;
+    margin: 18px 0 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--white);
+    text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55), 0 0 14px rgba(0, 0, 0, 0.3);
+}
+.home-legal .sep { color: rgba(255, 255, 255, 0.55); }
+.home-legal a { transition: color .2s ease; }
+.home-legal a:hover,
+.home-legal a:focus-visible { color: var(--gold); }
 @media (max-width: 480px) {
     .home-cta-row { gap: 10px; margin-top: 12px; }
     .home-cta { padding: 11px 18px; font-size: 0.85rem; }
@@ -2054,6 +2074,12 @@ a.contact-value:hover { color: var(--gold-3); }
     align-items: center;
 }
 .sep { color: var(--grey-3); }
+.footer-copy a {
+    color: var(--grey-5);
+    border-bottom: 1px solid var(--grey-3);
+    transition: color .2s ease, border-color .2s ease;
+}
+.footer-copy a:hover { color: var(--gold-3); border-bottom-color: var(--gold); }
 
 /* ============ SCROLL TRANSITIONS ============ */
 .fade-in,

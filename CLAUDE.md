@@ -10,6 +10,8 @@ Plain HTML/CSS/JS — no build step, no framework, no package.json at root.
 - **Origin:** Coolify VPS (`138.197.211.212`). **In front of it:** Cloudflare (nameservers `marjory`/`thaddeus.ns.cloudflare.com`). Moved to Cloudflare 2026-08-17.
 - **Deploys are triggered manually in Coolify, by choice.** A push to `main` is NOT shipping. Commit, push, then hand off — do not wait on or chase an automatic deploy, and never call an undeployed push a failure.
 - **The origin IP no longer accepts direct traffic** — it's firewalled to Cloudflare. Pings and direct curls to `138.197.211.212` time out even though the server is healthy. Always test through the domain, or with `curl --resolve <host>:443:<cloudflare-ip>`.
+- **The origin allowlist covers Cloudflare's IPv4 *and* IPv6 ranges,** and the Cloudflare-to-origin hop is encrypted — traffic is TLS the whole way, not just at the edge. The zone publishes AAAA records, so Cloudflare can reach the origin over v6; an allowlist that drifts to IPv4-only breaks the site in a way that looks like a dead server. Cloudflare rotates these ranges occasionally — they come from `cloudflare.com/ips`, and a stale list is a plausible cause of a sudden sitewide outage with a healthy container.
+- Edge behavior confirmed 2026-08-18: `Server: cloudflare` on every response, plain HTTP `302`s to HTTPS. **No security headers are set** — no HSTS, CSP, `X-Content-Type-Options`, `X-Frame-Options`, or `Referrer-Policy`. Not a live problem for a static marketing site, but it's the obvious next hardening step and it's free in Cloudflare Rules.
 
 ### Two caches sit between a deploy and what you see
 

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>ABBA Global Corp — One-Pager (print source)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ---------------------------------------------------------------
+   ABBA Global Corp one-pager — print source.
+   Export: open in Chrome, Ctrl+P, Destination "Save as PDF",
+   Paper "Letter", Margins "None", Background graphics ON.
+   Produces a real text PDF (selectable, searchable, vector-sharp).
+   Colours sampled from AGC_1Pgr_8.5.26.pdf.
+----------------------------------------------------------------*/
+:root{
+  --navy:#16222E;
+  --navy-band:#1E2C39;
+  --gold:#896B2F;
+  --paper:#FAF8F7;
+  --cream:#F2EFE6;
+  --ink:#26313B;
+  --ink-soft:#5A6570;
+  --ink-faint:#8A939C;
+  --on-navy-soft:#93A2AE;
+  --rule:#DCD8CE;
+  --green:#4A7A4E;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#5A6570}
+body{font-family:Inter,"Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+
+.hint{max-width:816px;margin:18px auto 10px;padding:12px 16px;background:#fff;border-left:4px solid var(--gold);
+      font-size:13px;line-height:1.55;color:#26313B;border-radius:3px}
+.hint b{font-weight:700}
+.hint code{background:#F2EFE6;padding:1px 5px;border-radius:3px;font-size:12px}
+
+.page{
+  width:816px;height:1056px;margin:0 auto 24px;background:var(--paper);
+  display:flex;flex-direction:column;overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,.35);
+}
+
+/* ---------- header ---------- */
+.head{background:var(--navy);padding:22px 40px 20px;color:#fff}
+.head-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:14px}
+.mark{width:52px;height:52px;background:var(--gold);display:flex;align-items:center;justify-content:center;
+      font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:21px;letter-spacing:.5px;color:#fff}
+.brand h1{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:31px;letter-spacing:1.2px;line-height:1}
+.brand p{font-size:9.5px;font-weight:600;letter-spacing:2.6px;color:var(--on-navy-soft);margin-top:5px}
+.tags{display:flex;gap:7px;flex-wrap:wrap;justify-content:flex-end;max-width:330px}
+.tag{border:1px solid #40505E;padding:5px 10px;font-size:9px;font-weight:600;letter-spacing:1.4px;color:#D5DCE2;white-space:nowrap}
+.tag.solid{background:var(--gold);border-color:var(--gold);color:#fff}
+.headline{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:53px;line-height:1.02;letter-spacing:-.3px;margin-top:20px}
+.headline .g{color:var(--gold)}
+.sub{font-size:13px;color:#C3CCD4;margin-top:9px;letter-spacing:.1px}
+
+/* ---------- stat band ---------- */
+.stats{background:var(--navy-band);display:flex;border-top:1px solid #2C3A47}
+.stat{flex:1;padding:15px 10px 16px;text-align:center;border-right:1px solid #2C3A47}
+.stat:last-child{border-right:0}
+.stat .n{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:31px;color:var(--gold);line-height:1}
+.stat .l{font-size:8.5px;font-weight:600;letter-spacing:2.2px;color:var(--on-navy-soft);margin-top:6px}
+
+/* ---------- body ---------- */
+.body{padding:22px 40px 0;flex:1;display:flex;flex-direction:column}
+.sec{display:flex;align-items:center;gap:12px;margin-bottom:11px}
+.sec h2{font-family:"Barlow Condensed",sans-serif;font-weight:800;font-size:14px;letter-spacing:2.6px;color:var(--gold);white-space:nowrap}
+.sec .rule{height:1px;background:var(--rule);flex:1}
+.lede{font-size:11.7px;line-height:1.72;color:var(--ink)}
+
+.cols{display:flex;gap:34px;margin-top:20px}
+.col{flex:1;min-width:0}
+
+table{width:100%;border-collapse:collapse}
+th{font-size:8.5px;font-weight:600;letter-spacing:1.6px;color:var(--ink-faint);text-align:left;
+   padding-bottom:6px;border-bottom:1px solid var(--rule)}
+th.r,td.r{text-align:right}
+td{font-size:11.2px;color:var(--ink);padding:6.5px 0;border-bottom:1px solid #EDE9E0}
+tr:last-child td{border-bottom:0}
+td.r{font-weight:700}
+td.k{color:var(--ink-soft)}
+td.v{font-weight:700;text-align:right}
+.ok{color:var(--green);font-weight:700}
+.na{color:var(--ink-faint);font-weight:600}
+.note{font-size:9px;font-style:italic;color:var(--ink-faint);margin-top:9px}
+
+/* ---------- cards ---------- */
+.why{margin-top:22px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}
+.card{background:var(--cream);padding:12px 13px 13px}
+.card h3{font-size:11.5px;font-weight:700;color:var(--navy);margin-bottom:5px}
+.card p{font-size:10.2px;line-height:1.52;color:var(--ink-soft)}
+
+/* ---------- footer ---------- */
+.foot{background:var(--navy);padding:11px 40px;display:flex;justify-content:space-between;align-items:center;
+      font-size:9.2px;letter-spacing:.7px;color:#9AA7B2;margin-top:auto}
+.foot a{color:#C8D1D8;text-decoration:none}
+.foot .sep{color:#4A5A68;margin:0 9px}
+
+/* ---------- print ---------- */
+@page{size:8.5in 11in;margin:0}
+@media print{
+  html,body{background:#fff}
+  .hint{display:none}
+  .page{width:8.5in;height:11in;margin:0;box-shadow:none;page-break-after:avoid}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+
+<div class="hint">
+  <b>Print source — this file is not published anywhere.</b><br>
+  To make the PDF: open in Chrome → <code>Ctrl+P</code> → Destination <b>Save as PDF</b> → Paper <b>Letter</b> →
+  Margins <b>None</b> → tick <b>Background graphics</b>. Save over
+  <code>mailer/assets/AGC_1Pgr_8.5.26.pdf</code>. This box does not print.
+</div>
+
+<div class="page">
+
+  <header class="head">
+    <div class="head-top">
+      <div class="brand">
+        <div class="mark">AGC</div>
+        <div>
+          <h1>ABBA GLOBAL CORP</h1>
+          <p>POWER-ONLY FRAC SAND CARRIER · PERMIAN BASIN</p>
+        </div>
+      </div>
+      <div class="tags">
+        <span class="tag">USDOT #4385996</span>
+        <span class="tag">MC #1720060</span>
+        <span class="tag solid">HISPANIC-OWNED</span>
+      </div>
+    </div>
+    <div class="headline">Reliable. Compliant. <span class="g">Ready to Roll.</span></div>
+    <p class="sub">West Texas &amp; Southeast New Mexico — in English &amp; Spanish, with owners who answer the phone.</p>
+  </header>
+
+  <section class="stats">
+    <div class="stat"><div class="n">9</div><div class="l">ABBA TRACTORS</div></div>
+    <div class="stat"><div class="n">100+</div><div class="l">LOADS / WEEK</div></div>
+    <div class="stat"><div class="n">24/7</div><div class="l">AVAILABILITY</div></div>
+    <div class="stat"><div class="n">TX + NM</div><div class="l">SERVICE AREA</div></div>
+  </section>
+
+  <main class="body">
+
+    <div class="sec"><h2>COMPANY OVERVIEW</h2><div class="rule"></div></div>
+    <p class="lede">
+      ABBA Global Corp (AGC) is a bilingual, Hispanic-owned power-only carrier headquartered in Kermit, TX.
+      We were founded on a simple idea: the freight that keeps a well producing should be as dependable as the
+      well itself. Nine ABBA tractors plus partner capacity move 100+ loads of frac sand weekly across the
+      Delaware and Midland sub-basins — with an owner behind the wheel and a partner who runs the business.
+    </p>
+
+    <div class="cols">
+      <div class="col">
+        <div class="sec"><h2>FMCSA CSA SCORES</h2><div class="rule"></div></div>
+        <table>
+          <thead><tr><th>BASIC CATEGORY</th><th class="r">SCORE</th></tr></thead>
+          <tbody>
+            <tr><td>Unsafe Driving</td><td class="r ok">0%</td></tr>
+            <tr><td>Hours of Service</td><td class="r ok">0%</td></tr>
+            <tr><td>Driver Fitness</td><td class="r">2.45</td></tr>
+            <tr><td>Vehicle Maintenance</td><td class="r">1.72</td></tr>
+            <tr><td>VM: Driver Observed</td><td class="r">4.72</td></tr>
+            <tr><td>Hazardous Materials</td><td class="r na">N/A</td></tr>
+            <tr><td>Crash Indicator</td><td class="r ok">0%</td></tr>
+            <tr><td>Insurance &amp; Other</td><td class="r ok">Clean</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Source: FMCSA SMS. No Acute/Critical violations in any category.</p>
+      </div>
+
+      <div class="col">
+        <div class="sec"><h2>CREDENTIALS &amp; COMPLIANCE</h2><div class="rule"></div></div>
+        <table>
+          <tbody>
+            <tr><td class="k">USDOT #</td><td class="v">4385996</td></tr>
+            <tr><td class="k">MC #</td><td class="v">1720060</td></tr>
+            <tr><td class="k">Ownership</td><td class="v">Hispanic-Owned</td></tr>
+            <tr><td class="k">ISNetworld</td><td class="v">Registration in progress</td></tr>
+            <tr><td class="k">Insurance</td><td class="v">On file — available on request</td></tr>
+            <tr><td class="k">NM WDT</td><td class="v">Compliant</td></tr>
+            <tr><td class="k">Driver Screening</td><td class="v">MVR / Background / Drug</td></tr>
+            <tr><td class="k">Cargo</td><td class="v">Frac Sand — Power Only</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="why">
+      <div class="sec"><h2>WHY ABBA GLOBAL CORP</h2><div class="rule"></div></div>
+      <div class="grid">
+        <div class="card">
+          <h3>Frac Sand Specialists</h3>
+          <p>We know every gate, lease road, and well-site in the Permian — no learning curve.</p>
+        </div>
+        <div class="card">
+          <h3>Owners on the Ground</h3>
+          <p>One founder drives. One runs the business. You always reach a decision-maker.</p>
+        </div>
+        <div class="card">
+          <h3>Bilingual Operations</h3>
+          <p>English &amp; Spanish fluency from the office to the cab — zero miscommunication.</p>
+        </div>
+        <div class="card">
+          <h3>Hispanic-Owned</h3>
+          <p>Locally owned and operated in Kermit — bilingual leadership with deep roots in the Permian Basin.</p>
+        </div>
+        <div class="card">
+          <h3>Scalable Fleet</h3>
+          <p>9 ABBA tractors plus vetted partner capacity; 100+ loads of frac sand per week.</p>
+        </div>
+        <div class="card">
+          <h3>Zero Critical Violations</h3>
+          <p>Clean FMCSA record across all BASIC categories. Safety is our baseline.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="foot">
+    <div>
+      <a href="mailto:info@abbaglobalcorp.com">info@abbaglobalcorp.com</a>
+      <span class="sep">|</span>
+      <a href="https://abbaglobalcorp.com">abbaglobalcorp.com</a>
+    </div>
+    <div>USDOT #4385996 · MC #1720060 · Power-Only · TX &amp; NM</div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -54,6 +54,16 @@ Separate Coolify app, Base Directory `/mailer`, reached at `mail.abbaglobalcorp.
 
 Only the final Brevo handoff needs a real send — that's Alan's call to make, not something to trigger unasked. On failure the app logs the true reason to Coolify as `[mailer] one-pager error: <message>`; read that before theorizing.
 
+### The one-pager attachment
+
+`mailer/assets/AGC_1Pgr_8.5.26.pdf` is attached to every one-pager request, renamed to `ABBA-Global-Corp-One-Pager.pdf` so no date shows in the recipient's inbox. **The Dockerfile does `COPY assets ./assets`, so the PDF is baked into the image at build time** — swapping the file and pushing changes nothing until the *mailer* app specifically is redeployed in Coolify. Deploying the website does not touch it.
+
+**`mailer/assets/agc_1pgr_source.html` is the master.** Edit it, then export in Chrome: `Ctrl+P` → Save as PDF → Letter → Margins **None** → **Background graphics ON** → save over the existing PDF filename so no code change is needed. Not web-reachable; the mailer has no `express.static`.
+
+Export it this way and nothing else. A PDF made by "Microsoft: Print To PDF" converts text to outlines, and an image-export-to-PDF makes the whole page one flat JPEG — both leave a broker unable to copy the USDOT or MC number. Verify a re-export by checking the file has `/FontFile2` objects and no `/Subtype /Image`. Don't reach for OCR to add a text layer: this page is mostly digits that matter, and a silently misread one is worse than no text.
+
+The one-pager's gold is **`#896B2F`**, a deep bronze — *not* the site's `--gold: #F5A623`. Two different golds, unresolved.
+
 ---
 
 ## Structure & conventions

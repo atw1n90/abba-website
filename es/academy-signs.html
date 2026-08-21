@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Capacitación de Señales para Conductores de Camiones</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;background:linear-gradient(135deg,#1a1a1a 0%,#2d2d2d 100%);color:#e8e8e8;min-height:100vh;padding:10px}
+.container{max-width:1200px;margin:0 auto;background:linear-gradient(135deg,#2a2a2a 0%,#1f1f1f 100%);border-radius:15px;box-shadow:0 20px 60px rgba(0,0,0,.5);overflow:hidden;border:2px solid #3a3a3a}
+header{background:linear-gradient(135deg,#1a3a6b 0%,#0E1F47 100%);color:#fff;padding:22px 18px;text-align:center;border-bottom:3px solid #3d6699}
+header h1{font-size:clamp(1.5em,5vw,2.2em);margin-bottom:6px;text-shadow:2px 2px 4px rgba(0,0,0,.3)}
+header p{font-size:clamp(.9em,2.5vw,1.1em);color:#C9D6EA}
+.welcome-bar{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);padding:10px 18px;border-bottom:2px solid #1a3a6b;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.welcome-bar span{font-weight:700;color:#F2B84B}
+.welcome-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.welcome-bar button{background:#1a3a6b;color:#fff;border:none;padding:7px 12px;border-radius:7px;cursor:pointer;font-size:.85em;transition:all .2s}
+.welcome-bar button:hover{background:#3d6699;transform:translateY(-1px)}
+.lang-toggle-app{display:inline-flex;align-items:center;gap:6px;background:#252525;border:1px solid #1a3a6b;border-radius:7px;padding:6px 11px;font-size:.8em;font-weight:800;letter-spacing:.06em}
+.lang-toggle-app .lang-current{color:#F2B84B}
+.lang-toggle-app .lang-sep{color:#6a6a6a;font-weight:400}
+.lang-toggle-app a{color:#9a9a9a;text-decoration:none;transition:color .2s}
+.lang-toggle-app a:hover,.lang-toggle-app a:focus-visible{color:#F2B84B;text-decoration:underline}
+.back-to-site{display:inline-flex;align-items:center;gap:6px;background:transparent;color:#C9D6EA;border:1px solid #3d6699;border-radius:7px;padding:6px 11px;font-size:.85em;font-weight:700;text-decoration:none;transition:all .2s}
+.back-to-site:hover,.back-to-site:focus-visible{background:#1a3a6b;color:#fff;transform:translateY(-1px)}
+.footer .back-to-site{margin-top:10px;font-size:.95em}
+nav{background:#252525;display:flex;justify-content:center;flex-wrap:wrap;border-bottom:2px solid #3a3a3a}
+nav button{background:none;border:none;color:#b0b0b0;padding:12px 16px;cursor:pointer;font-size:clamp(.85em,2.5vw,1em);font-weight:800;transition:all .2s;border-bottom:3px solid transparent;flex:1 1 auto;min-width:90px}
+nav button:hover{background:#2d2d2d;color:#F2B84B;border-bottom:3px solid #F2B84B}
+nav button.active{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);color:#F2B84B;border-bottom:3px solid #F5A623}
+.content{padding:18px;min-height:420px}
+.section{display:none;animation:fadeIn .25s ease-in}
+.section.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.btn-primary{background:linear-gradient(135deg,#F5A623 0%,#DE9010 100%);color:#0E1F47;border:none;padding:12px 22px;border-radius:10px;cursor:pointer;font-size:1em;font-weight:800;transition:all .2s;box-shadow:0 4px 15px rgba(245,166,35,.28)}
+.btn-primary:hover{background:linear-gradient(135deg,#F2B84B 0%,#F5A623 100%);transform:translateY(-2px);box-shadow:0 6px 20px rgba(245,166,35,.42)}
+.btn-secondary{background:#3a3a3a;color:#fff;border:2px solid #3d6699;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:.95em;font-weight:800;transition:all .2s}
+.btn-secondary:hover{background:#4a4a4a;border-color:#F2B84B;transform:translateY(-1px)}
+.intro-section{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);border-radius:12px;padding:22px;margin-bottom:18px;border:2px solid #1a3a6b;text-align:center}
+.intro-section h2{color:#F2B84B;font-size:1.6em;margin-bottom:10px}
+.intro-section p{color:#e0e0e0;font-size:1em;line-height:1.65;max-width:820px;margin:0 auto 10px}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin-top:10px}
+.stat-card{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);border-radius:10px;padding:18px;text-align:center;border:2px solid #1a3a6b;transition:all .2s}
+.stat-card:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,58,107,.25)}
+.stat-card h3{color:#F2B84B;font-size:2em;margin-bottom:6px}
+.stat-card p{color:#c0c0c0;font-size:.9em}
+.lessons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.lesson-card{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);border-radius:12px;padding:18px;border:2px solid #4a4a4a;transition:all .2s;cursor:pointer;position:relative}
+.lesson-card:hover{transform:translateY(-3px);border-color:#1a3a6b;box-shadow:0 6px 20px rgba(26,58,107,.25)}
+.lesson-card.completed{border-color:#51cf66;background:linear-gradient(135deg,#3d4a3d 0%,#2d3a2d 100%)}
+.lesson-number{display:inline-block;background:#1a3a6b;color:#fff;width:40px;height:40px;border-radius:50%;line-height:40px;text-align:center;font-weight:800;margin-bottom:10px;font-size:1.1em}
+.lesson-card h3{color:#F2B84B;margin-bottom:8px;font-size:1.15em}
+.lesson-card p{color:#c0c0c0;font-size:.9em;line-height:1.4;margin-bottom:8px}
+.lesson-progress{color:#888;font-size:.85em;margin-top:10px;padding-top:10px;border-top:1px solid #4a4a4a}
+.progress-bar-container{width:100%;height:8px;background:#2d2d2d;border-radius:4px;overflow:hidden;margin-top:8px}
+.progress-bar-fill{height:100%;background:linear-gradient(90deg,#1a3a6b 0%,#3d6699 100%);border-radius:4px;transition:width .3s ease}
+.lesson-viewer{max-width:900px;margin:0 auto}
+.lesson-header{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);border-radius:10px;padding:16px;margin-bottom:16px;border:2px solid #1a3a6b}
+.lesson-header h2{color:#F2B84B;margin-bottom:6px;font-size:1.4em}
+.lesson-header p{color:#c0c0c0;font-size:.95em}
+.sign-slide{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);border-radius:12px;padding:18px 16px 22px;text-align:center;border:2px solid #4a4a4a;min-height:510px;max-height:680px;display:flex;flex-direction:column;align-items:center;gap:10px;overflow-y:auto}
+.sign-image{max-width:200px;max-height:200px;margin:8px auto 22px;filter:drop-shadow(0 6px 15px rgba(0,0,0,.3))}
+.sign-slide h3{color:#F2B84B;font-size:1.35em;margin:4px 0 8px}
+.sign-slide .text{color:#e0e0e0;font-size:.95em;line-height:1.6;max-width:620px;margin:0 auto}
+.scenario-text{margin-top:12px;font-style:italic;color:#F2B84B;background:rgba(26,58,107,.1);padding:12px;border-radius:10px;border-left:4px solid #1a3a6b;font-size:.92em;line-height:1.5;max-width:620px}
+.slide-controls{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:12px;flex-wrap:wrap}
+.slide-nav{display:flex;gap:8px}
+.slide-indicator{color:#888;font-size:.9em}
+.quiz-container{max-width:820px;margin:0 auto}
+.quiz-header{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);border-radius:10px;padding:16px;margin-bottom:16px;border:2px solid #1a3a6b;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.quiz-info h3{color:#F2B84B;font-size:1.2em;margin-bottom:4px}
+.quiz-info p{color:#c0c0c0;font-size:.9em}
+.question-counter{color:#F2B84B;font-size:1.7em;font-weight:900}
+.quiz-slide{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);border-radius:12px;padding:18px;border:2px solid #4a4a4a;min-height:520px;max-height:680px;display:flex;flex-direction:column;gap:14px;overflow-y:auto}
+.question-text{color:#e8e8e8;font-size:1.02em;margin:10px 0 6px;line-height:1.5;text-align:center}
+.question-image{max-width:220px;max-height:220px;margin:6px auto 10px;display:block;filter:drop-shadow(0 6px 15px rgba(0,0,0,.3));object-fit:contain}
+.answer-options{display:flex;flex-direction:column;gap:12px;margin-top:6px}
+.answer-option{background:#2d2d2d;border:2px solid #4a4a4a;border-radius:12px;padding:14px 18px;cursor:pointer;transition:all .2s;color:#e8e8e8;font-size:1em;text-align:left}
+.answer-option:hover{background:#3a3a3a;border-color:#1a3a6b;transform:translateX(4px)}
+.answer-option.selected{background:#1a3a6b;border-color:#3d6699;color:#fff;transform:translateX(4px)}
+.quiz-nav-controls{display:flex;justify-content:space-between;align-items:center;margin-top:18px;gap:12px;flex-wrap:wrap}
+.btn-nav{background:#3a3a3a;color:#fff;border:2px solid #1a3a6b;padding:10px 16px;border-radius:10px;cursor:pointer;font-size:.95em;font-weight:800;transition:all .2s}
+.btn-nav:hover:not(:disabled){background:#4a4a4a;border-color:#3d6699;transform:translateY(-1px)}
+.btn-nav:disabled{opacity:.35;cursor:not-allowed}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;justify-content:center;align-items:center;padding:18px}
+.modal.active{display:flex}
+.modal-content{background:linear-gradient(135deg,#2a2a2a 0%,#1f1f1f 100%);border-radius:15px;padding:28px;max-width:600px;width:100%;border:3px solid #1a3a6b;box-shadow:0 20px 60px rgba(0,0,0,.5);text-align:center;max-height:90vh;overflow-y:auto}
+.modal-content h2{color:#F2B84B;font-size:1.8em;margin-bottom:10px}
+.modal-content p{color:#e8e8e8;font-size:1.05em;margin-bottom:10px;line-height:1.5}
+.modal-content input{width:100%;padding:12px;font-size:1.05em;border-radius:10px;border:2px solid #1a3a6b;background:#2d2d2d;color:#fff;margin:12px 0}
+.result-score{font-size:2.2em;color:#ffd700;font-weight:900;margin:12px 0}
+.modal-actions{display:flex;gap:10px;justify-content:center;margin-top:16px;flex-wrap:wrap}
+.glossary-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
+.glossary-card{background:linear-gradient(135deg,#3a3a3a 0%,#2d2d2d 100%);border-radius:10px;border:2px solid #4a4a4a;padding:18px;text-align:center;min-height:250px;display:flex;flex-direction:column;justify-content:center;align-items:center;transition:all .2s;cursor:pointer}
+.glossary-card:hover{transform:translateY(-2px);border-color:#1a3a6b;box-shadow:0 6px 20px rgba(26,58,107,.22)}
+.glossary-card img{max-width:120px;max-height:120px;margin-bottom:10px}
+.glossary-card h4{color:#F2B84B;font-size:1.02em;margin-bottom:8px}
+.glossary-card .definition{color:#c0c0c0;font-size:.86em;line-height:1.4;display:none}
+.glossary-card .scenario{color:#F2B84B;font-size:.82em;line-height:1.4;font-style:italic;display:none;margin-top:10px;padding-top:10px;border-top:1px solid #4a4a4a}
+.glossary-card.flipped .definition{display:block}
+.glossary-card.flipped .scenario{display:block}
+.glossary-card.flipped img{display:none}
+@media(max-width:768px){
+  .content{padding:14px}
+  nav button{padding:10px 12px;font-size:.85em}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .question-image{max-width:160px;max-height:160px}
+  .quiz-slide{min-height:460px}
+}
+.footer{background:#1a1a1a;padding:20px;text-align:center;border-top:2px solid #3a3a3a;color:#888;font-size:.85em;line-height:1.6}
+.footer p{margin:4px 0}
+</style>
+</head>
+<body>
+<div class="container">
+  <header>
+    <h1>🚛 Capacitación de Señales para Conductores de Camiones</h1>
+    <p>Domina el Camino, Una Señal a la Vez</p>
+  </header>
+
+  <div class="welcome-bar">
+    <span id="userGreeting">¡Bienvenido, Conductor!</span>
+    <div class="welcome-actions">
+      <a class="back-to-site" href="academy.html">&#8592; ABBA Global Corp</a>
+      <button onclick="resetProgress()">Restablecer Progreso</button>
+      <button onclick="changeUsername()">Cambiar Nombre</button>
+      <span class="lang-toggle-app" aria-label="Idioma"><a href="../academy-signs.html" hreflang="en" lang="en">EN</a><span class="lang-sep" aria-hidden="true">&middot;</span><span class="lang-current" aria-current="true">ES</span></span>
+    </div>
+  </div>
+
+  <nav>
+    <button class="active" onclick="showSection('home')">Inicio</button>
+    <button onclick="showSection('lessons')">Lecciones</button>
+    <button onclick="showSection('glossary')">Glosario de Señales</button>
+  </nav>
+
+  <div class="content">
+    <!-- HOME SECTION -->
+    <div id="home" class="section active">
+      <div class="intro-section">
+        <h2>Conoce Tus Señales, Domina el Camino 🛣️</h2>
+        <p>Desde señales de alto hasta pendientes pronunciadas—aprende las señales que te mantienen seguro y legal en cada viaje.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <h3 id="totalQuizzes">0</h3>
+          <p>Cuestionarios Realizados</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="totalPassed">0</h3>
+          <p>Cuestionarios Aprobados</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="lessonsCompleted">0</h3>
+          <p>Lecciones Completadas</p>
+        </div>
+        <div class="stat-card">
+          <h3 id="glossaryViewed">0</h3>
+          <p>Señales Revisadas</p>
+        </div>
+      </div>
+
+      <!-- DAILY QUIZ ON HOME -->
+      <div style="margin-top:24px">
+        <div class="intro-section">
+          <h2>📝 Desafío del Cuestionario Diario</h2>
+          <p>Pon a prueba tus conocimientos con 10 preguntas aleatorias que cubren todas las señales. Aprueba con 7/10 (70%).</p>
+          <button class="btn-primary" onclick="startDailyQuiz()" style="margin-top:12px">Iniciar Cuestionario Diario</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- LESSONS SECTION -->
+    <div id="lessons" class="section">
+      <div class="intro-section">
+        <h2>Módulos de Lecciones</h2>
+        <p>Aprende las señales por categoría. Cada lección incluye un cuestionario para evaluar tus conocimientos.</p>
+      </div>
+      <div id="lessonsGrid" class="lessons-grid">
+        <!-- Lesson cards will be dynamically inserted here -->
+      </div>
+    </div>
+
+    <!-- LESSON VIEWER -->
+    <div id="lesson-viewer" class="section">
+      <div class="lesson-viewer">
+        <div class="lesson-header">
+          <h2 id="lessonTitle">Lesson Title</h2>
+          <p id="lessonDescription">Lesson Description</p>
+        </div>
+
+        <div id="lessonSlide" class="sign-slide">
+          <!-- Lesson content will be dynamically inserted here -->
+        </div>
+
+        <div class="slide-controls">
+          <button class="btn-nav" id="lessonPrevBtn" onclick="prevLessonSlide()" disabled>Anterior</button>
+          <span class="slide-indicator" id="lessonIndicator">1/10</span>
+          <div class="slide-nav">
+            <button class="btn-nav" id="lessonNextBtn" onclick="nextLessonSlide()">Siguiente</button>
+            <button class="btn-primary" id="startLessonQuizBtn" onclick="startLessonQuiz()" style="display:none">Iniciar Cuestionario</button>
+          </div>
+        </div>
+
+        <button class="btn-secondary" onclick="exitLesson()" style="margin-top:16px">Volver a Lecciones</button>
+      </div>
+    </div>
+
+    <!-- DAILY QUIZ SECTION -->
+    <div id="daily-quiz" class="section">
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-info">
+            <h3>Daily Quiz Challenge</h3>
+            <p>20 randomized questions • Pass with 15/20 (75%)</p>
+          </div>
+          <div class="question-counter"><span id="currentQ">1</span>/20</div>
+        </div>
+
+        <div id="quizSlide" class="quiz-slide">
+          <!-- Questions will be dynamically inserted here -->
+        </div>
+
+        <div class="quiz-nav-controls">
+          <button class="btn-nav" id="prevBtn" onclick="prevQuestion()" disabled>Anterior</button>
+          <button class="btn-nav" id="nextBtn" onclick="nextQuestion()">Siguiente</button>
+          <button class="btn-primary" id="submitBtn" onclick="submitQuiz()" style="display:none">Enviar Cuestionario</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- GLOSSARY SECTION -->
+    <div id="glossary" class="section">
+      <div class="intro-section">
+        <h2>Glosario de Señales</h2>
+        <p>Haz clic en cualquier tarjeta para voltearla y ver la definición y el escenario del mundo real. ¡Domina todas las señales!</p>
+      </div>
+      <div id="glossaryGrid" class="glossary-grid">
+        <!-- Glossary cards will be dynamically inserted here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>Este material de capacitación es solo para fines educativos.</p>
+    <a class="back-to-site" href="academy.html">&#8592; Volver a ABBA Global Corp</a>
+  </div>
+</div>
+
+<!-- USERNAME MODAL -->
+<div id="usernameModal" class="modal">
+  <div class="modal-content">
+    <h2>Ingresa Tu Nombre</h2>
+    <p>¿Cómo te llamamos?</p>
+    <input type="text" id="usernameInput" placeholder="Tu nombre" maxlength="30">
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="saveUsername()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTS MODAL -->
+<div id="resultsModal" class="modal">
+  <div class="modal-content">
+    <h2 id="resultsTitle">¡Cuestionario Completo!</h2>
+    <div class="result-score" id="resultsScore">0/20</div>
+    <p id="resultsMessage"></p>
+    <div id="masteryAchieved"></div>
+    <div id="wrongAnswersSection"></div>
+    <div class="modal-actions">
+      <button class="btn-primary" onclick="closeResultsModal()">Cerrar</button>
+      <button class="btn-secondary" id="retryQuizBtn" onclick="retryQuiz()" style="display:none">Reintentar Cuestionario</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sign artwork lives in its own file so it caches and is shared with the English version. -->
+<script src="../academy-signs-data.js"></script>
+<script>
+
+// SIGN DATABASE - All 93 signs with definitions and scenarios
+const SIGNS_DATABASE = [
+  {
+    name: "Added Lane Right",
+    svg: "Added Lane Right Sign.svg",
+    definition: "Indica que un carril adicional se está fusionando desde el lado derecho de la carretera.",
+    scenario: "Estás conduciendo en una autopista y ves esta señal. Un nuevo carril está por aparecer a tu derecha, permitiendo que más tráfico se fusione sin problemas sin necesidad de cambiar de carril."
+  },
+  {
+    name: "Advisory Speed",
+    svg: "Advisory Speed Sign.svg",
+    definition: "Recomienda una velocidad segura para condiciones específicas del camino, como curvas o salidas.",
+    scenario: "Te estás acercando a una curva cerrada en un camino de montaña. Esta señal amarilla sugiere 35 mph para una navegación segura, aunque el límite de velocidad publicado puede ser mayor."
+  },
+  {
+    name: "Alternate Route",
+    svg: "Alternate Route Sign.svg",
+    definition: "Dirige a los conductores a una ruta alternativa cuando la ruta principal está cerrada o congestionada.",
+    scenario: "La construcción de carreteras ha cerrado la autopista principal. Sigues estas señales con flechas para desviarte alrededor del cierre y volver a unirte a tu ruta más adelante."
+  },
+  {
+    name: "Axle Weight Limit",
+    svg: "Axle Weight Limit Sign.svg",
+    definition: "Especifica el peso máximo permitido por eje en este camino o puente.",
+    scenario: "Estás conduciendo un semirremolque cargado acercándote a un puente. Esta señal muestra 15,000 lbs por eje. Debes verificar el peso del eje de tu camión antes de cruzar para evitar dañar la estructura."
+  },
+  {
+    name: "Bicycle Crossing",
+    svg: "Bicycle Crossing Sign.svg",
+    definition: "Advierte que las bicicletas cruzan frecuentemente en esta ubicación.",
+    scenario: "Estás conduciendo por una zona residencial cerca de un camino para bicicletas. Esta señal te alerta para estar atento a ciclistas cruzando el camino, especialmente durante las horas de luz del día."
+  },
+  {
+    name: "Bicycle Hill Warning",
+    svg: "Bicycle Hill Warning Sign.svg",
+    definition: "Alerta a los conductores que las bicicletas pueden estar viajando lentamente en una colina próxima.",
+    scenario: "Te estás acercando a una pendiente empinada cuesta arriba. Los ciclistas pueden estar moviéndose lentamente adelante, así que debes estar preparado para reducir la velocidad y pasar de manera segura cuando esté despejado."
+  },
+  {
+    name: "Bump",
+    svg: "Bump Sign.svg",
+    definition: "Advierte de una sección elevada o pavimento irregular adelante.",
+    scenario: "Estás conduciendo por un camino rural y ves esta señal. Reduce la velocidad para evitar sacudir la suspensión de tu camión o hacer que la carga se desplace al golpear el tope."
+  },
+  {
+    name: "Cross Road Warning",
+    svg: "Cross Road Warning Sign.svg",
+    definition: "Indica una intersección donde los caminos se cruzan adelante.",
+    scenario: "Estás en una autopista principal acercándote a una intersección. Mantente alerta para vehículos que entran desde los caminos laterales, incluso si tienes el derecho de paso."
+  },
+  {
+    name: "Deer Crossing",
+    svg: "Deer Crossing Sign.svg",
+    definition: "Advierte que los ciervos cruzan frecuentemente el camino en esta área.",
+    scenario: "Estás conduciendo por una zona boscosa al atardecer. Los ciervos son más activos al amanecer y al atardecer, así que reduce tu velocidad y escanea ambos lados del camino cuidadosamente."
+  },
+  {
+    name: "Diagonal Double-Headed Arrow",
+    svg: "Diagonal Double-Headed Arrow sign.svg",
+    definition: "Indica que el tráfico puede proceder en ambas direcciones diagonales.",
+    scenario: "Estás en una intersección donde el camino se divide diagonalmente. Esta señal confirma que puedes elegir cualquier dirección diagonal según tu destino."
+  },
+  {
+    name: "Diagonal Side Road Intersection (Left)",
+    svg: "Diagonal Side Road Intersection (Left) Sign.svg",
+    definition: "Advierte de un camino lateral que entra diagonalmente desde la izquierda.",
+    scenario: "Estás en un camino principal y un camino secundario se fusiona desde tu izquierda en un ángulo. Observa los vehículos que entran desde esta intersección diagonal."
+  },
+  {
+    name: "Dip",
+    svg: "Dip Sign.svg",
+    definition: "Advierte de una depresión repentina en la calzada adelante.",
+    scenario: "Estás conduciendo por una ruta rural después de una lluvia fuerte. La depresión adelante puede acumular agua, así que reduce la velocidad para evitar el hidroplaneo y mantener el control."
+  },
+  {
+    name: "Divided Highway Begins",
+    svg: "Divided Highway Begins Sign.svg",
+    definition: "Indica que el camino adelante se dividirá en carriles separados con una mediana.",
+    scenario: "Estás saliendo de un pueblo pequeño y entrando a una autopista principal. El camino adelante se divide con el tráfico opuesto separado por una barrera mediana."
+  },
+  {
+    name: "Divided Highway Ends",
+    svg: "Divided Highway Ends Sign.svg",
+    definition: "Advierte que la autopista separada por mediana está terminando y el tráfico de dos sentidos compartirá el camino.",
+    scenario: "Has estado en una autopista dividida y esta señal advierte que la mediana está terminando. Mantente alerta ya que el tráfico en sentido contrario ahora estará en el carril adyacente."
+  },
+  {
+    name: "Divided Highway Left",
+    svg: "Divided Highway Left Sign.svg",
+    definition: "Indica autopista dividida con flujo de tráfico hacia el lado izquierdo.",
+    scenario: "Te estás acercando a una sección donde la autopista dividida cambia. Mantente a la izquierda según lo indicado para permanecer en el lado correcto de la mediana."
+  },
+  {
+    name: "Divided Highway Right",
+    svg: "Divided Highway Right Sign.svg",
+    definition: "Indica autopista dividida con flujo de tráfico hacia el lado derecho.",
+    scenario: "La autopista dividida adelante tiene carriles cambiando a la derecha. Sigue la señal para mantenerte en el lado correcto del separador mediano."
+  },
+  {
+    name: "Do Not Enter",
+    svg: "Do Not Enter Sign.svg",
+    definition: "Prohíbe la entrada a una vía, típicamente indicando tráfico en sentido contrario o de un solo sentido.",
+    scenario: "Estás en una rampa de salida enfrentando esta señal roja y blanca. Esto confirma que vas en sentido contrario—detente inmediatamente y da la vuelta de manera segura."
+  },
+  {
+    name: "Do Not Pass",
+    svg: "Do Not Pass Sign.svg",
+    definition: "Prohíbe adelantar a otros vehículos en esta zona debido a visibilidad limitada o preocupaciones de seguridad.",
+    scenario: "Estás en una zona de no rebasar en una autopista de dos carriles con una línea amarilla sólida. Hay un vehículo lento adelante, pero debes esperar hasta que termine la zona antes de pasar."
+  },
+  {
+    name: "Downward Right Diagonal Crossing",
+    svg: "Downward Right Diagonal Crossing Sign.svg",
+    definition: "Advierte de un cruce de carretera diagonal de arriba a la izquierda hacia abajo a la derecha.",
+    scenario: "Estás en una intersección inusual donde otro camino cruza diagonalmente. Ten precaución adicional con el tráfico desde ángulos inesperados."
+  },
+  {
+    name: "Emergency Vehicle Ahead",
+    svg: "Emergency Vehicle Ahead Sign.svg",
+    definition: "Advierte que vehículos de emergencia pueden estar presentes adelante.",
+    scenario: "Te estás acercando a una estación de bomberos u hospital. Los vehículos de emergencia pueden entrar o salir rápidamente con luces y sirenas, así que mantente alerta y prepárate para ceder."
+  },
+  {
+    name: "Emergency Vehicle Weight Limit",
+    svg: "Emergency Vehicle Weight Limit Sign.svg",
+    definition: "Especifica restricciones de peso para vehículos de emergencia en este camino.",
+    scenario: "Estás conduciendo un vehículo de respuesta a emergencias acercándote a un puente. Verifica que el peso de tu vehículo esté dentro del límite publicado antes de proceder."
+  },
+  {
+    name: "End Road Work",
+    svg: "End Road Work Sign.svg",
+    definition: "Indica el final de una zona de construcción vial.",
+    scenario: "Has estado conduciendo por una zona de construcción con límites de velocidad reducidos. Esta señal te indica que la zona de trabajo está terminando y los límites de velocidad normales se reanudan."
+  },
+  {
+    name: "Flagger Ahead",
+    svg: "Flaggger Ahead Sign.svg",
+    definition: "Advierte que una persona dirigiendo el tráfico está adelante en una zona de trabajo.",
+    scenario: "Te estás acercando a una zona de construcción donde los carriles se alternan. Un abanderado usará una paleta de parar/despacio para controlar cuándo puedes proceder por el área de trabajo."
+  },
+  {
+    name: "Food Ahead",
+    svg: "Food Ahead Sign.svg",
+    definition: "Indica servicios de comida o restaurantes disponibles en la próxima salida o adelante.",
+    scenario: "Has estado conduciendo durante horas y necesitas un descanso para comer. Esta señal te alerta que hay restaurantes disponibles en la próxima salida."
+  },
+  {
+    name: "Fork In Road",
+    svg: "Fork In Road Sign.svg",
+    definition: "Advierte que el camino adelante se divide en dos rutas separadas.",
+    scenario: "La autopista adelante se divide en dos direcciones. Verifica tu GPS o mapa ahora para determinar qué bifurcación conduce a tu destino."
+  },
+  {
+    name: "Fresh Oil",
+    svg: "Fresh Oil Sign.svg",
+    definition: "Advierte que se ha aplicado aceite o alquitrán fresco a la superficie del camino.",
+    scenario: "El mantenimiento del camino acaba de sellar esta sección. Conduce con cuidado ya que el aceite fresco hace que la superficie sea resbaladiza y puede dañar la pintura o el chasis de tu camión."
+  },
+  {
+    name: "Gasoline Station Ahead",
+    svg: "Gasoline Station Ahead Sign.svg",
+    definition: "Indica servicios de combustible disponibles adelante o en la próxima salida.",
+    scenario: "Tu medidor de combustible está bajando en una autopista rural. Esta señal te asegura que viene una estación de gasolina donde puedes recargar combustible."
+  },
+  {
+    name: "Guide Arrow Diagonal Left",
+    svg: "Guide Arrow Diagonal Left Sign.svg",
+    definition: "Dirige a los conductores a girar diagonalmente hacia la izquierda.",
+    scenario: "Estás en una intersección compleja o intercambio. Sigue esta flecha para hacer el giro diagonal izquierdo correcto hacia tu ruta."
+  },
+  {
+    name: "Guide Arrow Left",
+    svg: "Guide Arrow Left Sign.svg",
+    definition: "Indica que el tráfico debe proceder hacia la izquierda.",
+    scenario: "Te estás acercando a una división de camino o desvío. Esta flecha te guía para mantenerte a la izquierda para continuar en tu ruta actual."
+  },
+  {
+    name: "Hospital Ahead",
+    svg: "Hospital Ahead Sign.svg",
+    definition: "Indica que un hospital o instalación médica está ubicado adelante.",
+    scenario: "Estás conduciendo y notas esta señal azul. Hay un hospital cerca en caso de emergencias médicas, y debes estar atento a vehículos de emergencia entrando/saliendo."
+  },
+  {
+    name: "Intersection",
+    svg: "Intersection Sign.svg",
+    definition: "Advierte de una intersección estándar de cuatro vías adelante.",
+    scenario: "Estás en una autopista acercándote a un cruce de caminos. Reduce la velocidad y prepárate para detenerte o ceder ya que el tráfico de otras direcciones puede estar entrando."
+  },
+  {
+    name: "Interstate Marker",
+    svg: "Interstate Marker Sign.svg",
+    definition: "Identifica el número de ruta de la autopista interestatal.",
+    scenario: "Estás navegando a través del país y necesitas fusionarte en la I-75 Norte. Busca esta señal en forma de escudo para confirmar que estás en la interestatal correcta."
+  },
+  {
+    name: "Junction Ahead",
+    svg: "Junction Ahead Sign.svg",
+    definition: "Advierte que se aproxima una unión o intersección importante de carreteras.",
+    scenario: "Estás en una autopista estatal y esta señal advierte que hay una unión importante con otra autopista adelante. Prepárate para navegar el intercambio o continuar recto."
+  },
+  {
+    name: "Left Lane Ends Merge Right",
+    svg: "Left Lane Ends Merge Right Sign.svg",
+    definition: "Advierte que el carril izquierdo está terminando y el tráfico debe fusionarse a la derecha.",
+    scenario: "Estás en el carril izquierdo y aparece esta señal. Comienza a fusionarte a la derecha de manera segura antes de que termine el carril para evitar ser forzado fuera del camino."
+  },
+  {
+    name: "Left Turn",
+    svg: "Left Turn Sign.svg",
+    definition: "Indica un giro cerrado a la izquierda adelante en la carretera.",
+    scenario: "Te estás acercando a un giro de 90 grados a la izquierda en un camino de montaña. Reduce la velocidad significativamente para navegar la curva cerrada de manera segura con la longitud de tu camión."
+  },
+  {
+    name: "Low Clearance Ahead",
+    svg: "Low Clearance Ahead Sign.svg",
+    definition: "Advierte que un puente, túnel o paso elevado adelante tiene altura libre vertical limitada.",
+    scenario: "Estás conduciendo un camión que mide 13'6\" de altura y ves esta señal mostrando 13'0\" de altura libre adelante. Debes encontrar una ruta alternativa para evitar golpear el paso elevado."
+  },
+  {
+    name: "Low Ground Clearance",
+    svg: "Low Ground Clearance Sign.svg",
+    definition: "Advierte de una sección donde la superficie del camino puede ser demasiado baja para vehículos con altura libre limitada.",
+    scenario: "Estás conduciendo un remolque de plataforma baja con una carga que cuelga baja. Esta señal advierte que el camino adelante se hunde o tiene vías de tren elevadas que podrían tocar el fondo de tu remolque."
+  },
+  {
+    name: "Low Shoulder",
+    svg: "Low Shoulder Sign.svg",
+    definition: "Advierte que el arcén es más bajo que la superficie del camino.",
+    scenario: "Te desvías ligeramente hacia el arcén y sientes una caída. Esta señal te advirtió que el arcén está varias pulgadas más bajo, lo que dificulta dirigir de vuelta al camino."
+  },
+  {
+    name: "Men Working",
+    svg: "Men Working Sign.svg",
+    definition: "Advierte que trabajadores de construcción vial están presentes en el área.",
+    scenario: "Estás entrando a una zona de construcción donde las cuadrillas están repavimentando. Reduce la velocidad al límite de velocidad de la zona de trabajo publicado y observa cuidadosamente a los trabajadores cerca de la carretera."
+  },
+  {
+    name: "Narrow Bridge",
+    svg: "Narrow Bridge Sign.svg",
+    definition: "Advierte que un puente adelante es más estrecho que el camino actual.",
+    scenario: "Estás conduciendo una carga ancha y ves esta señal. El puente adelante puede no tener carriles completos, así que reduce la velocidad y asegúrate de que puedes pasar de manera segura, posiblemente por el centro."
+  },
+  {
+    name: "No Left Turn",
+    svg: "No Left Turn.svg",
+    definition: "Prohíbe hacer un giro a la izquierda en esta intersección.",
+    scenario: "Necesitas ir a la izquierda pero ves esta señal en la intersección. Debes proceder recto o girar a la derecha, luego encontrar un lugar legal para dar la vuelta."
+  },
+  {
+    name: "No Parking Anytime",
+    svg: "No Parking Anytime.svg",
+    definition: "Prohíbe estacionar en esta ubicación en todo momento.",
+    scenario: "Estás buscando un lugar para estacionar tu camión en el centro. Esta señal roja significa que estacionar aquí resultará en una multa o remolque en cualquier momento, día o noche."
+  },
+  {
+    name: "No Parking",
+    svg: "No Parking.svg",
+    definition: "Prohíbe estacionar durante horarios o condiciones especificadas.",
+    scenario: "Necesitas detenerte brevemente para una entrega. Verifica los horarios en esta señal para ver si el estacionamiento está actualmente prohibido o si puedes detenerte legalmente."
+  },
+  {
+    name: "No Right Turn",
+    svg: "No Right Turn.svg",
+    definition: "Prohíbe hacer un giro a la derecha en esta intersección.",
+    scenario: "Te estás acercando a una intersección donde normalmente girarías a la derecha, pero esta señal lo prohíbe. Continúa recto o gira a la izquierda para encontrar una ruta alternativa."
+  },
+  {
+    name: "No Trucks Allowed",
+    svg: "No Trucks Allowed Sign.svg",
+    definition: "Prohíbe que los camiones usen este camino o sección.",
+    scenario: "Estás conduciendo un semirremolque y ves esta señal en una vía residencial. Debes salir inmediatamente y usar rutas aprobadas para camiones para evitar multas."
+  },
+  {
+    name: "No Turn On Red",
+    svg: "No Turn On Red Sign.svg",
+    definition: "Prohíbe girar a la derecha durante una luz roja en esta intersección.",
+    scenario: "Estás detenido en una luz roja queriendo girar a la derecha. Esta señal requiere que esperes una luz verde antes de girar, incluso si el tráfico está despejado."
+  },
+  {
+    name: "No U-Turn",
+    svg: "No U-Turn.svg",
+    definition: "Prohíbe hacer un giro en U en esta ubicación.",
+    scenario: "Te das cuenta de que vas en la dirección equivocada y quieres dar la vuelta. Esta señal prohíbe los giros en U aquí—continúa hasta la próxima intersección para dar la vuelta legalmente."
+  },
+  {
+    name: "Object Marker",
+    svg: "Object Marker Sign.svg",
+    definition: "Marca un objeto fijo u obstrucción en o cerca de la carretera.",
+    scenario: "Estás conduciendo de noche y ves esta señal rayada reflectante en un pilar de puente en la mediana. Te ayuda a ver la obstrucción y mantenerte en tu carril."
+  },
+  {
+    name: "One Way",
+    svg: "One Way Sign.svg",
+    definition: "Indica que el tráfico fluye en una sola dirección en esta calle.",
+    scenario: "Giras en una calle del centro y ves esta flecha. Todo el tráfico debe viajar en la dirección indicada—ir en la dirección opuesta es ilegal y peligroso."
+  },
+  {
+    name: "Pavement Ends",
+    svg: "Pavement Ends Sign.svg",
+    definition: "Advierte que la superficie del camino pavimentado está terminando adelante.",
+    scenario: "Estás en un camino rural que ha estado pavimentado, pero esta señal advierte que se convierte en grava adelante. Reduce la velocidad antes de la transición para mantener el control."
+  },
+  {
+    name: "Pedestrian Crossing",
+    svg: "Pedestrian Crossing.svg",
+    definition: "Advierte que los peatones cruzan frecuentemente en esta ubicación.",
+    scenario: "Estás conduciendo por una zona del centro cerca de tiendas. Esta señal marca un paso de peatones donde los peatones tienen el derecho de paso, así que prepárate para detenerte."
+  },
+  {
+    name: "Railroad Crossing",
+    svg: "Railroad Crossing Sign.svg",
+    definition: "Advierte de un cruce ferroviario adelante donde las vías cruzan el camino.",
+    scenario: "Te estás acercando a un cruce de ferrocarril con tu camión cargado. Reduce la velocidad, mira y escucha trenes, y nunca te detengas sobre las vías."
+  },
+  {
+    name: "Rest Area 1 Mile",
+    svg: "Rest Area 1 Mile.svg",
+    definition: "Indica que un área de descanso está disponible en una milla.",
+    scenario: "Has estado conduciendo durante horas y necesitas tomar tu descanso obligatorio. Esta señal te indica que un área de descanso con estacionamiento e instalaciones está justo adelante."
+  },
+  {
+    name: "Reverse Curve Left",
+    svg: "Reverse Curve Left Sign.svg",
+    definition: "Advierte de una serie de curvas, primero a la derecha luego a la izquierda.",
+    scenario: "Estás en un camino de montaña sinuoso. Después de una curva a la derecha, el camino inmediatamente se curva de vuelta a la izquierda, así que mantén la velocidad reducida a través de ambas curvas."
+  },
+  {
+    name: "Reverse Curve Right",
+    svg: "Reverse Curve Right Sign.svg",
+    definition: "Advierte de una serie de curvas, primero a la izquierda luego a la derecha.",
+    scenario: "Estás conduciendo por colinas y encuentras una curva en S. Navega la primera curva izquierda, luego prepárate inmediatamente para la curva derecha que sigue."
+  },
+  {
+    name: "Right Lane Ends",
+    svg: "Right Lane Ends Sign.svg",
+    definition: "Advierte que el carril derecho está terminando adelante.",
+    scenario: "Estás en el carril derecho de una autopista. Esta señal advierte que tu carril está terminando, así que verifica tus espejos y fusiónate a la izquierda antes de que desaparezca el carril."
+  },
+  {
+    name: "Right Lane Merge",
+    svg: "Right Lane Merge Sign.svg",
+    definition: "Indica que el carril derecho se fusionará con el tráfico desde la izquierda.",
+    scenario: "Estás en el carril derecho mientras se estrecha. Prepárate para fusionarte suavemente con el tráfico del carril izquierdo, cediendo a los vehículos que ya están en ese carril."
+  },
+  {
+    name: "Right Turn",
+    svg: "Right Turn Sign.svg",
+    definition: "Indica un giro cerrado a la derecha adelante en la carretera.",
+    scenario: "Te estás acercando a un giro de 90 grados a la derecha. Reduce la velocidad significativamente y abre el giro si es necesario para navegar tu camión de manera segura a través de la esquina cerrada."
+  },
+  {
+    name: "Road Closed",
+    svg: "Road Closed.svg",
+    definition: "Indica que el camino adelante está completamente cerrado al tráfico.",
+    scenario: "Estás siguiendo tu GPS pero encuentras esta señal. El camino es intransitable—da la vuelta y sigue las señales de desvío publicadas para llegar a tu destino."
+  },
+  {
+    name: "Road Narrows",
+    svg: "Road Narrows Sign.svg",
+    definition: "Advierte que el ancho del camino disminuye adelante.",
+    scenario: "Estás en un camino de dos carriles que está por volverse más estrecho. Prepárate para menos espacio, especialmente al encontrarte con tráfico en sentido contrario o al pasar."
+  },
+  {
+    name: "Road Work Ahead",
+    svg: "Road Work Ahead.svg",
+    definition: "Advierte de trabajo de construcción o mantenimiento adelante.",
+    scenario: "Ves esta señal naranja en la autopista. Reduce la velocidad, observa trabajadores y equipo, y prepárate para cierres de carril o pavimento irregular."
+  },
+  {
+    name: "Rough Road Ahead",
+    svg: "Rough Road Ahead.svg",
+    definition: "Advierte que la superficie del camino adelante es irregular o está dañada.",
+    scenario: "Estás conduciendo por un camino con baches y pavimento deteriorado adelante. Reduce la velocidad para proteger la suspensión de tu camión y prevenir daños a la carga."
+  },
+  {
+    name: "School Crossing",
+    svg: "School Crossing.svg",
+    definition: "Advierte de un cruce escolar designado donde pueden estar presentes niños.",
+    scenario: "Estás conduciendo por una zona escolar durante la hora de entrada por la mañana. Los niños pueden estar cruzando con o sin guardias de cruce, así que reduce la velocidad y observa cuidadosamente."
+  },
+  {
+    name: "School Zone",
+    svg: "School Zone Sign.svg",
+    definition: "Indica entrada a una zona escolar con límites de velocidad reducidos durante horas escolares.",
+    scenario: "Son las 8am un día de semana y ves esta señal. Reduce la velocidad al límite de zona escolar publicado (usualmente 15-25 mph) para proteger a los niños que pueden estar caminando o en bicicleta."
+  },
+  {
+    name: "Side Road to Right",
+    svg: "Side Road to Right.svg",
+    definition: "Advierte de un camino lateral que entra desde la derecha.",
+    scenario: "Estás en una autopista principal y un camino más pequeño se interseca desde la derecha. Observa los vehículos que entran o cruzan tu camino desde este camino lateral."
+  },
+  {
+    name: "Signal Ahead",
+    svg: "Signal Ahead.svg",
+    definition: "Advierte que hay un semáforo adelante.",
+    scenario: "Estás en una autopista rural que está por entrar a un pueblo. Esta señal advierte que hay un semáforo adelante donde puedes necesitar detenerte."
+  },
+  {
+    name: "Slight Left Turn",
+    svg: "Slight Left Turn Sign.svg",
+    definition: "Indica una curva suave hacia la izquierda adelante.",
+    scenario: "El camino adelante se curva gradualmente a la izquierda. Aunque no es un giro cerrado, mantén la conciencia y permanece en tu carril a través de la curva."
+  },
+  {
+    name: "Slight Right Turn",
+    svg: "Slight Right Turn Sign.svg",
+    definition: "Indica una curva suave hacia la derecha adelante.",
+    scenario: "Estás en una autopista con una curva gradual a la derecha adelante. Mantén tu velocidad razonable y permanece centrado en tu carril a través del giro."
+  },
+  {
+    name: "Slippery Road",
+    svg: "Slippery Road Sign.svg",
+    definition: "Advierte que las condiciones del camino adelante pueden ser resbaladizas cuando están mojadas.",
+    scenario: "Está lloviendo y ves esta señal. El camino adelante puede tener menos tracción, así que reduce la velocidad y aumenta la distancia de seguimiento para prevenir derrapes."
+  },
+  {
+    name: "Shoulder Drop Off",
+    svg: "Soulder Drop Off Sign.svg",
+    definition: "Advierte que el arcén del camino cae abruptamente desde el borde del pavimento.",
+    scenario: "Te desvías al arcén y sientes una caída significativa. Esta señal te advirtió—evita el arcén y si te sales, no des un tirón para volver al camino."
+  },
+  {
+    name: "Speed Hump",
+    svg: "Speed Hump Sign.svg",
+    definition: "Advierte de un tope de velocidad elevado adelante diseñado para reducir el tráfico.",
+    scenario: "Estás conduciendo por un estacionamiento o área residencial. Reduce la velocidad significativamente para evitar sacudir tu camión o dañar la suspensión al cruzar el tope de velocidad."
+  },
+  {
+    name: "Speed Limit 50",
+    svg: "Speed Limit 50 Sign.svg",
+    definition: "Indica que la velocidad máxima legal es 50 mph en este camino.",
+    scenario: "Entras a una nueva área y el límite de velocidad cambia a 50 mph. Ajusta tu velocidad para cumplir—conducir más rápido puede resultar en multas o accidentes."
+  },
+  {
+    name: "Stop Ahead",
+    svg: "Stop Ahead.svg",
+    definition: "Advierte que hay una señal de alto adelante.",
+    scenario: "Estás viajando por un camino rural acercándote a una intersección. Esta advertencia anticipada te permite saber que debes prepararte para detenerte en la señal de alto adelante."
+  },
+  {
+    name: "Stop",
+    svg: "Stop Sign.svg",
+    definition: "Requiere que los conductores se detengan completamente antes de proceder.",
+    scenario: "Te acercas a una intersección con una señal de alto. Detente completamente, verifica todas las direcciones para tráfico, luego procede cuando sea seguro."
+  },
+  {
+    name: "Surveying Crew",
+    svg: "Surveying Crew Sign.svg",
+    definition: "Advierte que una cuadrilla de topografía está trabajando cerca o en la carretera.",
+    scenario: "Los ingenieros viales están tomando mediciones a lo largo de la autopista. Reduce la velocidad y observa trabajadores que pueden estar parados en o cerca de tu carril con equipo."
+  },
+  {
+    name: "Truck Crossing",
+    svg: "Truck Crossing Sign.svg",
+    definition: "Advierte que los camiones cruzan o entran frecuentemente a la carretera en esta ubicación.",
+    scenario: "Estás pasando por una instalación de almacén o envío. Camiones grandes pueden estar entrando o cruzando el camino, así que observa cuidadosamente los camiones que se mueven lentamente o que giran."
+  },
+  {
+    name: "Truck Rollover Warning",
+    svg: "Truck Rolloever Warning.svg",
+    definition: "Advierte de una curva o rampa donde los camiones pueden volcarse si viajan demasiado rápido.",
+    scenario: "Te estás acercando a una rampa de salida con una curva cerrada. Reduce muy por debajo de la velocidad recomendada publicada con tu camión cargado para prevenir volcarte."
+  },
+  {
+    name: "Truck Route",
+    svg: "Truck Route Sign.svg",
+    definition: "Designa una ruta aprobada para tráfico de camiones.",
+    scenario: "Estás navegando por un área con restricciones para camiones. Sigue estas señales para permanecer en rutas legales para camiones y evitar caminos donde los camiones están prohibidos."
+  },
+  {
+    name: "Two Way Traffic",
+    svg: "Two Way Traffic Sign.svg",
+    definition: "Advierte que el tráfico adelante fluye en ambas direcciones, típicamente después de una autopista dividida.",
+    scenario: "Has estado en una autopista dividida y esta señal advierte que está terminando. El tráfico en sentido contrario ahora estará en el carril adyacente, así que mantente alerta."
+  },
+  {
+    name: "Upcoming Steep Downgrade",
+    svg: "Upcoming Steep Downgrade.svg",
+    definition: "Advierte de una pendiente descendente pronunciada adelante, mostrando el porcentaje.",
+    scenario: "Estás conduciendo un camión cargado y ves 6% de pendiente adelante. Prueba tus frenos y cambia a una marcha más baja antes de descender para mantener el control."
+  },
+  {
+    name: "Weight Limit",
+    svg: "Weight Limit Sign.svg",
+    definition: "Especifica el peso bruto vehicular máximo permitido en este camino o puente.",
+    scenario: "Estás conduciendo un camión cargado a 75,000 lbs y ves un límite de peso de 40 toneladas (80,000 lbs). Estás dentro de los límites y puedes proceder de manera segura a través del puente."
+  },
+  {
+    name: "Winding Road Left",
+    svg: "Winding Road Left Sign.svg",
+    definition: "Advierte de una serie de curvas hacia la izquierda adelante.",
+    scenario: "Estás entrando a una sección con múltiples curvas a la izquierda. Reduce la velocidad y mantente alerta a través de cada curva—pueden volverse más cerradas a medida que avanzas."
+  },
+  {
+    name: "Winding Road Right",
+    svg: "Winding Road Right Sign.svg",
+    definition: "Advierte de una serie de curvas hacia la derecha adelante.",
+    scenario: "El camino adelante tiene varias curvas consecutivas a la derecha. Reduce la velocidad y mantén una velocidad constante a través de la sección sinuosa."
+  },
+  {
+    name: "Yield Ahead",
+    svg: "Yield Ahead.svg",
+    definition: "Advierte que hay una señal de ceda el paso adelante.",
+    scenario: "Te estás acercando a un punto de fusión o intersección. Esta advertencia anticipada te indica que te prepares para ceder al otro tráfico en la próxima señal de ceda el paso."
+  },
+  {
+    name: "Yield",
+    svg: "Yield Sign.svg",
+    definition: "Requiere que los conductores reduzcan la velocidad y cedan el derecho de paso al otro tráfico.",
+    scenario: "Estás entrando a una rotonda o punto de fusión. Reduce la velocidad y cede a los vehículos que ya están en el flujo de tráfico, procediendo solo cuando sea seguro."
+  }
+
+,
+
+  // Nuevas Señales - Temas Avanzados
+  { svg: "Bridge_May_Ice_in_Cold_Weather_Sign", name: "Puente Puede Congelarse en Clima Frío", definition: "Advierte que los puentes y pasos elevados pueden congelarse antes que las carreteras durante el clima frío.", scenario: "Estás conduciendo en condiciones invernales. Esta señal te alerta para reducir la velocidad al cruzar puentes, ya que se congelan más rápido que las carreteras regulares." },
+  { svg: "Emergency_Stopping_Only", name: "Solo Paradas de Emergencia", definition: "Indica que solo se permite detenerse en situaciones de emergencia.", scenario: "Estás en el arcén de una autopista y ves esta señal. Solo puedes detenerte aquí si tienes una emergencia genuina (avería, problema médico), no para descansar o hacer llamadas." },
+  { svg: "Hazmat_Route_sign", name: "Ruta de Materiales Peligrosos", definition: "Designa rutas aprobadas para vehículos que transportan materiales peligrosos.", scenario: "Estás transportando materiales peligrosos. Sigue las rutas marcadas con esta señal verde para mantenerte en caminos aprobados y evitar áreas restringidas." },
+  { svg: "No_Engine_Brake_Sign", name: "Sin Freno de Motor", definition: "Prohíbe el uso de frenos de motor (frenos Jake) debido a preocupaciones de ruido.", scenario: "Entrando a una zona residencial, ves esta señal. Debes usar los frenos de servicio regulares en lugar del freno de motor para evitar ruido excesivo." },
+  { svg: "Photo_Enforced_Traffic_Laws_Sign", name: "Leyes de Tránsito con Foto-Multas", definition: "Indica que las leyes de tránsito son monitoreadas por cámaras para aplicación automática.", scenario: "Te acercas a una intersección con esta señal. Ten en cuenta que las violaciones de luz roja o exceso de velocidad serán fotografiadas automáticamente y multadas." },
+  { svg: "Runaway_Truck_Ramp_Sign", name: "Rampa para Camiones Desbocados", definition: "Marca la ubicación de una rampa de escape de emergencia para camiones con falla de frenos.", scenario: "Descendiendo una pendiente pronunciada, pierdes tus frenos. Usa esta rampa inmediatamente—está diseñada con grava o arena para detener camiones desbocados de manera segura." },
+  { svg: "Truck_Parking_Sign", name: "Estacionamiento para Camiones", definition: "Designa áreas donde se permite el estacionamiento de camiones.", scenario: "Necesitas tomar tu descanso obligatorio. Busca esta señal azul para encontrar áreas de estacionamiento legales y seguras para camiones." },
+  { svg: "Weigh_Station_Ahead_Sign", name: "Estación de Pesaje Adelante", definition: "Advierte que se aproxima una estación de pesaje o inspección.", scenario: "Estás conduciendo un vehículo comercial. Esta señal significa que debes salir y entrar a la estación de pesaje a menos que las señales de desvío indiquen que está cerrada." }
+];
+
+// LESSONS DATABASE - Organized by category
+const LESSONS = [
+  {
+    id: "regulatory",
+    title: "Señales Regulatorias",
+    description: "Señales que te dicen lo que debes o no debes hacer. Estas señales suelen ser rojas, blancas o negras y son legalmente aplicables.",
+    signs: [
+      "Stop", "Yield", "Do Not Enter", "Do Not Pass", "No Left Turn", "No Right Turn", 
+      "No U-Turn", "No Turn On Red", "No Parking", "No Parking Anytime", "No Trucks Allowed",
+      "Speed Limit 50", "One Way"
+    ]
+  },
+  {
+    id: "warning",
+    title: "Señales de Advertencia",
+    description: "Señales amarillas en forma de diamante que te advierten sobre peligros o cambios en las condiciones del camino.",
+    signs: [
+      "Right Turn", "Left Turn", "Slight Right Turn", "Slight Left Turn", "Winding Road Right", "Winding Road Left",
+      "Reverse Curve Right", "Reverse Curve Left", "Slippery Road", "Bump", "Dip",
+      "Deer Crossing", "Pedestrian Crossing", "Bicycle Crossing",
+      "Puente Puede Congelarse en Clima Frío", "Rampa para Camiones Desbocados"
+    ]
+  },
+  {
+    id: "intersections",
+    title: "Señales de Intersecciones y Tráfico",
+    description: "Señales que advierten sobre intersecciones próximas, fusiones y patrones de tráfico.",
+    signs: [
+      "Signal Ahead", "Stop Ahead", "Yield Ahead", "Cross Road Warning", "Intersection",
+      "Side Road to Right", "Junction Ahead", "Fork In Road", "Two Way Traffic",
+      "Divided Highway Begins", "Divided Highway Ends",
+      "Leyes de Tránsito con Foto-Multas"
+    ]
+  },
+  {
+    id: "lanes",
+    title: "Señales de Carriles y Fusiones",
+    description: "Señales que te informan sobre cambios de carril, fusiones y cambios en la configuración del camino.",
+    signs: [
+      "Right Lane Ends", "Left Lane Ends Merge Right", "Right Lane Merge", "Added Lane Right",
+      "Road Narrows", "Divided Highway Left", "Divided Highway Right"
+    ]
+  },
+  {
+    id: "work-zone",
+    title: "Señales de Zona de Trabajo",
+    description: "Señales naranjas que indican áreas de construcción y trabajo vial. Siempre reduce la velocidad en zonas de trabajo.",
+    signs: [
+      "Road Work Ahead", "Men Working", "Flagger Ahead", "End Road Work", "Fresh Oil",
+      "Surveying Crew", "Pavement Ends", "Rough Road Ahead"
+    ]
+  },
+  {
+    id: "truck-specific",
+    title: "Señales Específicas para Camiones",
+    description: "Señales críticas que todo conductor de camión debe conocer, incluyendo límites de peso, alturas y rutas para camiones.",
+    signs: [
+      "Weight Limit", "Axle Weight Limit", "Low Clearance Ahead", "Low Ground Clearance",
+      "Truck Route", "Truck Crossing", "Truck Rollover Warning", "Upcoming Steep Downgrade",
+      "Estación de Pesaje Adelante", "Sin Freno de Motor", "Estacionamiento para Camiones", "Ruta de Materiales Peligrosos"
+    ]
+  },
+  {
+    id: "guide",
+    title: "Señales de Guía y Servicios",
+    description: "Señales azules y verdes que proporcionan información útil sobre servicios, rutas e instalaciones.",
+    signs: [
+      "Interstate Marker", "Alternate Route", "Food Ahead", "Gasoline Station Ahead",
+      "Hospital Ahead", "Rest Area 1 Mile", "Guide Arrow Left", "Guide Arrow Diagonal Left"
+    ]
+  },
+  {
+    id: "special",
+    title: "Señales de Condiciones Especiales",
+    description: "Señales para condiciones únicas del camino y situaciones que requieren atención extra.",
+    signs: [
+      "School Zone", "School Crossing", "Railroad Crossing", "Emergency Vehicle Ahead",
+      "Low Shoulder", "Shoulder Drop Off", "Narrow Bridge", "Speed Hump",
+      "Object Marker", "Advisory Speed",
+      "Solo Paradas de Emergencia"
+    ]
+  }
+];
+
+// USER PROGRESS
+let userProgress = {
+  username: "",
+  quizzesTaken: 0,
+  quizzesPassed: 0,
+  glossaryViewed: [],
+  lessonsCompleted: [],
+  lessonProgress: {} // Track viewed signs per lesson: { lessonId: [signName1, signName2, ...] }
+};
+
+// QUIZ STATE
+let currentQuiz = {
+  questions: [],
+  currentIndex: 0,
+  answers: [],
+  startTime: 0,
+  mode: "daily", // or "lesson"
+  lessonId: null
+};
+
+// LESSON STATE
+let currentLesson = {
+  id: null,
+  signs: [],
+  currentIndex: 0
+};
+
+// LOAD/SAVE STATE
+function loadState(){
+  const saved = localStorage.getItem("truckTrainingProgress");
+  if(saved){
+    try{
+      const parsed = JSON.parse(saved);
+      userProgress = {...userProgress, ...parsed};
+    }catch(e){}
+  }
+}
+
+function saveState(){
+  localStorage.setItem("truckTrainingProgress", JSON.stringify(userProgress));
+}
+
+// USERNAME HANDLING
+function ensureUser(){
+  loadState();
+  if(!userProgress.username){
+    showModal("usernameModal", true);
+    document.getElementById("usernameInput").focus();
+  }else{
+    document.getElementById("userGreeting").textContent = `¡Bienvenido, ${userProgress.username}!`;
+    renderStats();
+    renderLessons();
+    renderGlossary();
+  }
+}
+
+function saveUsername(){
+  const input = document.getElementById("usernameInput").value.trim();
+  if(!input){
+    alert("Por favor ingresa un nombre");
+    return;
+  }
+  userProgress.username = input;
+  saveState();
+  document.getElementById("userGreeting").textContent = `¡Bienvenido, ${userProgress.username}!`;
+  showModal("usernameModal", false);
+  renderStats();
+  renderLessons();
+  renderGlossary();
+}
+
+function changeUsername(){
+  document.getElementById("usernameInput").value = userProgress.username;
+  showModal("usernameModal", true);
+  document.getElementById("usernameInput").focus();
+}
+
+function resetProgress(){
+  if(!confirm("⚠️ ¿Restablecer todo el progreso?\n\nEsto eliminará:\n• Todas las puntuaciones de cuestionarios\n• Todas las lecciones completadas\n• Todas las señales revisadas\n• Tu nombre de usuario\n\n¡Esto no se puede deshacer!")) return;
+  
+  // Clear the progress data
+  localStorage.removeItem("truckTrainingProgress");
+  
+  // Reset the userProgress object
+  userProgress = {
+    username: "",
+    quizzesTaken: 0,
+    quizzesPassed: 0,
+    glossaryViewed: [],
+    lessonsCompleted: [],
+    lessonProgress: {}
+  };
+  
+  // Reload the page to start fresh
+  location.reload();
+}
+
+// MODAL CONTROL
+function showModal(id, show){
+  const modal = document.getElementById(id);
+  if(show) modal.classList.add("active");
+  else modal.classList.remove("active");
+}
+
+// NAVIGATION
+function showSection(sectionId){
+  document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+  document.querySelectorAll("nav button").forEach(b => b.classList.remove("active"));
+  
+  document.getElementById(sectionId).classList.add("active");
+  document.querySelectorAll("nav button").forEach(b => {
+    if(b.textContent.toLowerCase().includes(sectionId.replace("-"," "))){
+      b.classList.add("active");
+    }
+  });
+}
+
+// STATS RENDERING
+function renderStats(){
+  document.getElementById("totalQuizzes").textContent = userProgress.quizzesTaken;
+  document.getElementById("totalPassed").textContent = userProgress.quizzesPassed;
+  document.getElementById("lessonsCompleted").textContent = userProgress.lessonsCompleted.length;
+  document.getElementById("glossaryViewed").textContent = userProgress.glossaryViewed.length;
+}
+
+// LESSONS RENDERING
+function renderLessons(){
+  const grid = document.getElementById("lessonsGrid");
+  const completed = new Set(userProgress.lessonsCompleted || []);
+  const progress = userProgress.lessonProgress || {};
+  
+  const cards = LESSONS.map((lesson, index) => {
+    const isCompleted = completed.has(lesson.id);
+    const completedClass = isCompleted ? "completed" : "";
+    const checkmark = isCompleted ? "✅ " : "";
+    
+    // Calculate progress
+    const viewedSigns = progress[lesson.id] || [];
+    const totalSigns = lesson.signs.length;
+    const viewedCount = viewedSigns.length;
+    const progressPercent = (viewedCount / totalSigns) * 100;
+    
+    return `
+      <div class="lesson-card ${completedClass}" onclick="startLesson('${lesson.id}')">
+        <div class="lesson-number">${index + 1}</div>
+        <h3>${checkmark}${lesson.title}</h3>
+        <p>${lesson.description}</p>
+        <div class="lesson-progress">
+          ${viewedCount}/${totalSigns} señales vistas
+          <div class="progress-bar-container">
+            <div class="progress-bar-fill" style="width:${progressPercent}%"></div>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join("");
+  
+  grid.innerHTML = cards;
+}
+
+function startLesson(lessonId){
+  const lesson = LESSONS.find(l => l.id === lessonId);
+  if(!lesson) return;
+  
+  // Get full sign data for this lesson
+  const lessonSigns = lesson.signs.map(signName => {
+    return SIGNS_DATABASE.find(s => s.name === signName);
+  }).filter(Boolean);
+  
+  currentLesson = {
+    id: lessonId,
+    title: lesson.title,
+    description: lesson.description,
+    signs: lessonSigns,
+    currentIndex: 0
+  };
+  
+  document.getElementById("lessonTitle").textContent = lesson.title;
+  document.getElementById("lessonDescription").textContent = lesson.description;
+  
+  showSection("lesson-viewer");
+  renderLessonSlide();
+  updateLessonNav();
+}
+
+function renderLessonSlide(){
+  const sign = currentLesson.signs[currentLesson.currentIndex];
+  const slide = document.getElementById("lessonSlide");
+  
+  let html = `
+    <img src="${SVG_DATA[sign.svg]}" alt="${sign.name}" class="sign-image">
+    <h3>${sign.name}</h3>
+    <div class="text">${sign.definition}</div>
+    <div class="scenario-text"><strong>Escenario del Mundo Real:</strong> ${sign.scenario}</div>
+  `;
+  
+  slide.innerHTML = html;
+  
+  const indicator = document.getElementById("lessonIndicator");
+  indicator.textContent = `${currentLesson.currentIndex + 1}/${currentLesson.signs.length}`;
+  
+  // Track that this sign was viewed
+  trackLessonProgress(currentLesson.id, sign.name);
+}
+
+function trackLessonProgress(lessonId, signName){
+  if(!userProgress.lessonProgress) userProgress.lessonProgress = {};
+  if(!userProgress.lessonProgress[lessonId]) userProgress.lessonProgress[lessonId] = [];
+  
+  // Add sign to viewed list if not already there
+  if(!userProgress.lessonProgress[lessonId].includes(signName)){
+    userProgress.lessonProgress[lessonId].push(signName);
+    saveState();
+    renderLessons(); // Update the lesson cards with new progress
+  }
+}
+
+function updateLessonNav(){
+  document.getElementById("lessonPrevBtn").disabled = currentLesson.currentIndex === 0;
+  
+  const isLastSlide = currentLesson.currentIndex === currentLesson.signs.length - 1;
+  document.getElementById("lessonNextBtn").style.display = isLastSlide ? "none" : "inline-block";
+  document.getElementById("startLessonQuizBtn").style.display = isLastSlide ? "inline-block" : "none";
+}
+
+function prevLessonSlide(){
+  if(currentLesson.currentIndex > 0){
+    currentLesson.currentIndex--;
+    renderLessonSlide();
+    updateLessonNav();
+  }
+}
+
+function nextLessonSlide(){
+  if(currentLesson.currentIndex < currentLesson.signs.length - 1){
+    currentLesson.currentIndex++;
+    renderLessonSlide();
+    updateLessonNav();
+  }
+}
+
+function exitLesson(){
+  showSection("lessons");
+}
+
+function startLessonQuiz(){
+  currentQuiz = {
+    questions: generateLessonQuestions(currentLesson.id),
+    currentIndex: 0,
+    answers: new Array(10).fill(null),
+    startTime: Date.now(),
+    mode: "lesson",
+    lessonId: currentLesson.id
+  };
+  
+  showSection("daily-quiz");
+  renderQuestion();
+  updateQuizNav();
+  
+  // Update quiz header for lesson quiz
+  document.querySelector("#daily-quiz .quiz-info h3").textContent = `Cuestionario de ${currentLesson.title}`;
+  document.querySelector("#daily-quiz .quiz-info p").textContent = "10 preguntas • Aprueba con 7/10 (70%)";
+  document.getElementById("currentQ").parentElement.textContent = "1/10";
+}
+
+function generateLessonQuestions(lessonId){
+  const lesson = LESSONS.find(l => l.id === lessonId);
+  const lessonSigns = lesson.signs.map(signName => {
+    return SIGNS_DATABASE.find(s => s.name === signName);
+  }).filter(Boolean);
+  
+  const questions = [];
+  const shuffledSigns = [...lessonSigns].sort(() => Math.random() - 0.5);
+  
+  // Generate 10 questions from this lesson's signs
+  for(let i = 0; i < Math.min(10, shuffledSigns.length); i++){
+    const sign = shuffledSigns[i];
+    const questionType = ["identify", "scenario", "truefalse", "multiple"][i % 4];
+    
+    if(questionType === "identify"){
+      questions.push(generateIdentifyQuestion(sign));
+    }else if(questionType === "scenario"){
+      questions.push(generateScenarioQuestion(sign));
+    }else if(questionType === "truefalse"){
+      questions.push(generateTrueFalseQuestion(sign));
+    }else{
+      questions.push(generateMultipleChoiceQuestion(sign));
+    }
+  }
+  
+  return questions.sort(() => Math.random() - 0.5);
+}
+
+// QUIZ GENERATION
+function generateQuestions(){
+  const questions = [];
+  const shuffledSigns = [...SIGNS_DATABASE].sort(() => Math.random() - 0.5);
+  
+  // Generate 10 questions with mixed types
+  for(let i = 0; i < 10; i++){
+    const sign = shuffledSigns[i % shuffledSigns.length];
+    const questionType = ["identify", "scenario", "truefalse", "multiple"][i % 4];
+    
+    if(questionType === "identify"){
+      questions.push(generateIdentifyQuestion(sign));
+    }else if(questionType === "scenario"){
+      questions.push(generateScenarioQuestion(sign));
+    }else if(questionType === "truefalse"){
+      questions.push(generateTrueFalseQuestion(sign));
+    }else{
+      questions.push(generateMultipleChoiceQuestion(sign));
+    }
+  }
+  
+  return questions.sort(() => Math.random() - 0.5);
+}
+
+function generateIdentifyQuestion(sign){
+  const wrongSigns = SIGNS_DATABASE.filter(s => s.name !== sign.name).sort(() => Math.random() - 0.5).slice(0, 3);
+  const options = [sign.name, ...wrongSigns.map(s => s.name)].sort(() => Math.random() - 0.5);
+  
+  return {
+    type: "identify",
+    question: "¿Qué señal es esta?",
+    image: sign.svg,
+    options: options,
+    correct: sign.name,
+    sign: sign.name
+  };
+}
+
+function generateScenarioQuestion(sign){
+  const wrongSigns = SIGNS_DATABASE.filter(s => s.name !== sign.name).sort(() => Math.random() - 0.5).slice(0, 3);
+  const options = [sign.name, ...wrongSigns.map(s => s.name)].sort(() => Math.random() - 0.5);
+  
+  return {
+    type: "scenario",
+    question: sign.scenario,
+    options: options,
+    correct: sign.name,
+    sign: sign.name
+  };
+}
+
+function generateTrueFalseQuestion(sign){
+  const isTrue = Math.random() > 0.5;
+  const statement = isTrue ? sign.definition : SIGNS_DATABASE.filter(s => s.name !== sign.name)[Math.floor(Math.random() * 84)].definition;
+  
+  return {
+    type: "truefalse",
+    question: `Verdadero o Falso: ${sign.name} - ${statement}`,
+    options: ["Verdadero", "Falso"],
+    correct: isTrue ? "Verdadero" : "Falso",
+    sign: sign.name
+  };
+}
+
+function generateMultipleChoiceQuestion(sign){
+  const wrongDefs = SIGNS_DATABASE.filter(s => s.name !== sign.name).sort(() => Math.random() - 0.5).slice(0, 3);
+  const options = [sign.definition, ...wrongDefs.map(s => s.definition)].sort(() => Math.random() - 0.5);
+  
+  return {
+    type: "multiple",
+    question: `¿Qué significa la señal ${sign.name}?`,
+    options: options,
+    correct: sign.definition,
+    sign: sign.name
+  };
+}
+
+// QUIZ CONTROL
+function startDailyQuiz(){
+  currentQuiz = {
+    questions: generateQuestions(),
+    currentIndex: 0,
+    answers: new Array(10).fill(null),
+    startTime: Date.now(),
+    mode: "daily",
+    lessonId: null
+  };
+  
+  // Reset quiz header for daily quiz
+  document.querySelector("#daily-quiz .quiz-info h3").textContent = "Desafío del Cuestionario Diario";
+  document.querySelector("#daily-quiz .quiz-info p").textContent = "10 preguntas aleatorias • Aprueba con 7/10 (70%)";
+  
+  showSection("daily-quiz");
+  renderQuestion();
+  updateQuizNav();
+}
+
+function renderQuestion(){
+  const q = currentQuiz.questions[currentQuiz.currentIndex];
+  const slide = document.getElementById("quizSlide");
+  
+  let html = "";
+  
+  if(q.image){
+    html += `<img src="${SVG_DATA[q.image]}" alt="Sign" class="question-image">`;
+  }
+  
+  html += `<div class="question-text">${q.question}</div>`;
+  html += `<div class="answer-options">`;
+  
+  q.options.forEach((opt, idx) => {
+    const selected = currentQuiz.answers[currentQuiz.currentIndex] === opt ? "selected" : "";
+    html += `<div class="answer-option ${selected}" onclick="selectAnswer(${idx})">${opt}</div>`;
+  });
+  
+  html += `</div>`;
+  slide.innerHTML = html;
+  
+  const totalQuestions = currentQuiz.questions.length;
+  document.getElementById("currentQ").textContent = currentQuiz.currentIndex + 1;
+  document.getElementById("currentQ").parentElement.innerHTML = `<span id="currentQ">${currentQuiz.currentIndex + 1}</span>/${totalQuestions}`;
+}
+
+function selectAnswer(optionIndex){
+  const q = currentQuiz.questions[currentQuiz.currentIndex];
+  currentQuiz.answers[currentQuiz.currentIndex] = q.options[optionIndex];
+  renderQuestion();
+  updateQuizNav();
+}
+
+function updateQuizNav(){
+  const totalQuestions = currentQuiz.questions.length;
+  const isLastQuestion = currentQuiz.currentIndex === totalQuestions - 1;
+  
+  document.getElementById("prevBtn").disabled = currentQuiz.currentIndex === 0;
+  
+  if(isLastQuestion){
+    document.getElementById("nextBtn").style.display = "none";
+    document.getElementById("submitBtn").style.display = "inline-block";
+  }else{
+    document.getElementById("nextBtn").style.display = "inline-block";
+    document.getElementById("submitBtn").style.display = "none";
+  }
+}
+
+function prevQuestion(){
+  if(currentQuiz.currentIndex > 0){
+    currentQuiz.currentIndex--;
+    renderQuestion();
+    updateQuizNav();
+  }
+}
+
+function nextQuestion(){
+  const totalQuestions = currentQuiz.questions.length;
+  if(currentQuiz.currentIndex < totalQuestions - 1){
+    currentQuiz.currentIndex++;
+    renderQuestion();
+    updateQuizNav();
+  }
+}
+
+function submitQuiz(){
+  const unanswered = currentQuiz.answers.filter(a => a === null).length;
+  if(unanswered > 0){
+    if(!confirm(`Tienes ${unanswered} pregunta(s) sin responder. ¿Enviar de todos modos?`)) return;
+  }
+  
+  const results = gradeQuiz();
+  const timeSec = Math.floor((Date.now() - currentQuiz.startTime) / 1000);
+  
+  // Only count daily quizzes in stats
+  if(currentQuiz.mode === "daily"){
+    userProgress.quizzesTaken++;
+    if(results.passed) userProgress.quizzesPassed++;
+  }
+  
+  // Mark lesson as completed if quiz passed
+  if(currentQuiz.mode === "lesson" && results.passed){
+    if(!userProgress.lessonsCompleted.includes(currentQuiz.lessonId)){
+      userProgress.lessonsCompleted.push(currentQuiz.lessonId);
+    }
+  }
+  
+  saveState();
+  showResultsModal(results, timeSec);
+}
+
+function gradeQuiz(){
+  let score = 0;
+  const wrong = [];
+  const totalQuestions = currentQuiz.questions.length;
+  
+  currentQuiz.questions.forEach((q, i) => {
+    const userAnswer = currentQuiz.answers[i];
+    if(userAnswer === q.correct){
+      score++;
+    }else{
+      wrong.push({
+        i: i + 1,
+        question: q.question,
+        sign: q.sign,
+        picked: userAnswer || "Sin respuesta",
+        correct: q.correct,
+        image: q.image || null
+      });
+    }
+  });
+  
+  // Passing score: 70% for both daily and lesson quizzes (7/10)
+  const passingScore = Math.ceil(totalQuestions * 0.7);
+  
+  return {
+    score: score,
+    total: totalQuestions,
+    passed: score >= passingScore,
+    wrong: wrong
+  };
+}
+
+function showResultsModal(results, timeSec){
+  const title = document.getElementById("resultsTitle");
+  const scoreEl = document.getElementById("resultsScore");
+  const msg = document.getElementById("resultsMessage");
+  const masteryEl = document.getElementById("masteryAchieved");
+  const wrongEl = document.getElementById("wrongAnswersSection");
+  const retryBtn = document.getElementById("retryQuizBtn");
+  
+  const passed = results.passed;
+  const isLesson = currentQuiz.mode === "lesson";
+  
+  title.textContent = passed ? "✅ ¡Cuestionario Completo!" : "❌ ¡Inténtalo de Nuevo!";
+  scoreEl.textContent = `${results.score}/${results.total}`;
+  
+  if(passed){
+    if(isLesson){
+      msg.textContent = `¡Buen trabajo! Aprobaste el cuestionario de la lección en ${timeSec}s. ¡Lección completada! ✅`;
+    }else{
+      msg.textContent = `¡Buen trabajo! Aprobaste en ${timeSec}s.`;
+    }
+  }else{
+    msg.textContent = `Obtuviste ${results.score}/${results.total}. Necesitas 7/10 (70%) para aprobar. ¡Revisa las preguntas incorrectas e inténtalo de nuevo!`;
+  }
+  
+  masteryEl.innerHTML = "";
+  
+  if(results.wrong.length){
+    const items = results.wrong.map(w => {
+      let html = `<div style="margin:12px 0;padding:14px;border:2px solid #4a4a4a;border-radius:12px;background:#2d2d2d;text-align:left">`;
+      html += `<div style="font-weight:900;color:#F2B84B;font-size:1.05em;margin-bottom:8px;">Pregunta ${w.i}</div>`;
+      
+      if(w.image){
+        html += `<div style="text-align:center;margin:10px 0;"><img src="${SVG_DATA[w.image]}" style="max-width:100px;max-height:100px;filter:drop-shadow(0 4px 10px rgba(0,0,0,.3))"></div>`;
+      }
+      
+      html += `<div style="color:#e0e0e0;margin-bottom:10px;line-height:1.5;font-size:.95em;">${w.question}</div>`;
+      html += `<div style="color:#ff6b6b;margin:6px 0;padding:8px;background:rgba(255,107,107,.1);border-radius:6px;"><strong>Tu respuesta:</strong> ${w.picked}</div>`;
+      html += `<div style="color:#51cf66;margin:6px 0;padding:8px;background:rgba(81,207,102,.1);border-radius:6px;"><strong>Respuesta correcta:</strong> ${w.correct}</div>`;
+      html += `</div>`;
+      return html;
+    }).join("");
+    wrongEl.innerHTML = `<h3 style="color:#F2B84B;margin:14px 0 10px;font-size:1.3em;">Revisar Preguntas Incorrectas</h3>${items}`;
+  }else{
+    wrongEl.innerHTML = `<div style="margin-top:16px;padding:16px;background:rgba(81,207,102,.15);border-radius:12px;border:2px solid #51cf66;color:#51cf66;font-weight:700;">🎉 ¡Puntuación perfecta! ¡Respondiste todas las preguntas correctamente!</div>`;
+  }
+  
+  retryBtn.style.display = (!passed) ? "inline-block" : "none";
+  showModal("resultsModal", true);
+  
+  renderStats();
+  renderLessons();
+}
+
+function closeResultsModal(){
+  showModal("resultsModal", false);
+  if(currentQuiz.mode === "lesson"){
+    showSection("lessons");
+  }else{
+    showSection("home");
+  }
+}
+
+function retryQuiz(){
+  showModal("resultsModal", false);
+  if(currentQuiz.mode === "lesson"){
+    startLessonQuiz();
+  }else{
+    startDailyQuiz();
+  }
+}
+
+// GLOSSARY
+function renderGlossary(){
+  const grid = document.getElementById("glossaryGrid");
+  
+  const cards = SIGNS_DATABASE.map(s => {
+    return `
+      <div class="glossary-card" onclick="flipGlossary(this, '${escapeQuotes(s.name)}')">
+        <img src="${SVG_DATA[s.svg]}" alt="${s.name}">
+        <h4>${s.name}</h4>
+        <div class="definition">${s.definition}</div>
+        <div class="scenario"><strong>Escenario:</strong> ${s.scenario}</div>
+      </div>
+    `;
+  }).join("");
+  
+  grid.innerHTML = cards;
+}
+
+function escapeQuotes(str){
+  return str.replace(/'/g, "\\'");
+}
+
+function flipGlossary(cardEl, signName){
+  cardEl.classList.toggle("flipped");
+  const viewed = new Set(userProgress.glossaryViewed || []);
+  if(!viewed.has(signName)){
+    viewed.add(signName);
+    userProgress.glossaryViewed = [...viewed];
+    saveState();
+    renderStats();
+  }
+}
+
+// KEYBOARD SUPPORT
+document.addEventListener("keydown", function(e){
+  if(e.key === "Enter"){
+    const usernameModal = document.getElementById("usernameModal");
+    if(usernameModal.classList.contains("active")){
+      saveUsername();
+    }
+  }
+});
+
+// INITIALIZE
+window.addEventListener("load", ensureUser);
+</script>
+</body>
+</html>

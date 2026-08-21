@@ -68,6 +68,45 @@ The one-pager's gold is **`#896B2F`**, a deep bronze — *not* the site's `--gol
 
 ---
 
+## ABBA Academy (the road sign trainer)
+
+Self-hosted here since 2026-08-20. It used to live on an outside Netlify account
+(`agbtrucksignsenglish.netlify.app`) that predates this repo — that site is still
+up and untouched, but nothing on the website points at it any more.
+
+| File | What it is |
+|---|---|
+| `academy-signs.html` | The app, English — 69 KB |
+| `es/academy-signs.html` | The app, Spanish — 74 KB |
+| `academy-signs-data.js` | The 93 sign images, **shared by both** — 1.95 MB |
+| `academy.html` / `es/academy.html` | The marketing landing pages that link into it |
+
+**Keep the artwork out of the HTML.** Alan's originals were 2 MB single files with
+the images embedded. Cloudflare never caches HTML on this site (`DYNAMIC`), so as
+one file every visit re-downloaded 2 MB — brutal on a phone in the Permian. Split
+out, the pages are 69 KB and the images ride the 4-hour static cache. **That also
+means a change to `academy-signs-data.js` needs a Cloudflare purge**, or drivers
+see the old artwork for up to 4 hours while the page itself looks updated.
+
+**Sign names stay in English in the Spanish version. This is deliberate** — the
+driver learns the English name and reads the meaning in Spanish. Do not "fix" it.
+
+**The two apps carry a byte-identical stylesheet**, same rule as the prescreen
+forms — change one, change both, and `diff` the `<style>` blocks to confirm.
+
+**Palette:** navy `#0E1F47`/`#1a3a6b` chrome, gold `#F5A623` buttons, gold
+`#F2B84B` accent text, on the app's original dark charcoal. Recolored from a
+forest green that matched nothing in the brand. **Green `#51cf66` and red
+`#ff6b6b` are left alone on purpose** — they mean right and wrong to the driver,
+not branding. Sign cards stay neutral grey so the artwork's real colors read true.
+
+Progress is saved in `localStorage` under `truckTrainingProgress`, keyed by sign
+name. Because both languages share those English names on one domain, a driver
+who switches languages keeps everything. Free, but easy to break by translating
+the sign names.
+
+---
+
 ## Structure & conventions
 
 - **Bilingual:** full Spanish mirror in `/es/`. But the **prescreen forms, legal pages, and thank-you pages live at the repo root**, not under `/es/` — `prescreen_spanish.html`, `privacidad.html`, `terminos.html`, `gracias.html`. Any client-facing change needs a real Spanish equivalent, not a rough translation.
